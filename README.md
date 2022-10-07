@@ -1,4 +1,4 @@
-# Observer Bot
+# Observer Bot TS
 ![DiscordJS Version](https://img.shields.io/node/v/discord.js?style=flat-square)
 ![Discord](https://img.shields.io/discord/761670547196739635?style=flat-square)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/w/ComparatorCraftSMP/observer-bot?style=flat-square)
