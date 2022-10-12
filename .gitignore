@@ -1,6 +1,6 @@
 # config
 devconfig.ts
-
+config.ts
 # Logs
 logs
 *.log
