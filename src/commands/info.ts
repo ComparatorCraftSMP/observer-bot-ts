@@ -84,15 +84,15 @@ module.exports = {
 
           const command = await client.application.commands.fetch();
 
-          const channel = await guild.channels.fetch();
-          const channelCount = channel.size;
+          const channel = await guild?.channels.fetch();
+          const channelCount = channel?.size;
 
-          const roles = await guild.roles.fetch();
+          const roles = await guild?.roles.fetch();
           const roleCount = roles.size;
 
           const matchUnderscore = /(_)/g;
 
-          const feature = guild.features
+          const feature = guild?.features
             .map(
               (fe) =>
                 `<:icons_Correct:859388130411282442> ${fe
@@ -102,24 +102,24 @@ module.exports = {
             )
             .join("\n");
 
-          const embed = new MessageEmbed()
+          const embed = new EmbedBuilder()
             .setColor(`${config.embedColor}`)
-            .setTitle(`Information about ${guild.name}`)
+            .setTitle(`Information about ${guild?.name}`)
             .addFields(
               {
                 name: "<:icons_shine1:859424400959602718> Owner",
-                value: `<@${guild.ownerId}>`,
+                value: `<@${guild?.ownerId}>`,
                 inline: true,
               },
               {
                 name: "<:icons_people:964425853930995783> Members",
-                value: `Member Count: ${guild.memberCount}`,
+                value: `Member Count: ${guild?.memberCount}`,
                 inline: true,
               },
               {
                 name: "<:icons_calendar1:941679946760351794> Date Created",
                 value: `<t:${Math.round(
-                  guild.createdAt / 1000
+                  guild?.createdAt / 1000
                 )}:F> or <t:${Math.round(guild.createdAt / 1000)}:R>`,
                 inline: true,
               },
@@ -142,7 +142,7 @@ module.exports = {
               },
               {
                 name: "<:icons_colorstaff:869554761840603196> Affiliation",
-                value: `<:icons_colorserverpartner:869529747447746600> Partnered: ${guild.partnered}\n<:icons_colorserververified:869529747846234162> Verified: ${guild.verified}`,
+                value: `<:icons_colorserverpartner:869529747447746600> Partnered: ${guild?.partnered}\n<:icons_colorserververified:869529747846234162> Verified: ${guild.verified}`,
                 inline: true,
               },
               {
@@ -153,13 +153,13 @@ module.exports = {
               {
                 name: "<:icons_colorboostnitro:869528229436858378> Boosting",
                 value: `Shows Progress Bar: ${
-                  guild.premiumProgressBarEnabled
-                }\nBoosting Tier: ${guild.premiumTier
+                  guild?.premiumProgressBarEnabled
+                }\nBoosting Tier: ${guild?.premiumTier
                   .replace(matchUnderscore, " ")
                   .toLowerCase()
                   .replace(/(^|\s)\S/g, (L) =>
                     L.toUpperCase()
-                  )}\nTotal Boost Count: ${guild.premiumSubscriptionCount}`,
+                  )}\nTotal Boost Count: ${guild?.premiumSubscriptionCount}`,
                 inline: true,
               },
               {
@@ -167,7 +167,7 @@ module.exports = {
                 value: `${feature}`,
               }
             )
-            .setThumbnail(client.user.avatarURL({ dynamic: true }));
+            .setThumbnail(client.user.avatarURL({ forceStatic: false })!);
 
           await interaction.reply({ embeds: [embed] });
           break;
