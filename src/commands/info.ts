@@ -14,6 +14,8 @@ import {
   ChatInputCommandInteraction,
 } from "discord.js";
 
+import { client } from "../..";
+
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("info")
