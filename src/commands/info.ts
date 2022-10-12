@@ -59,6 +59,14 @@ module.exports = {
       subcommand
         .setName('mc_user')
         .setDescription('Information about an user on minecraft')
+        .addStringOption((option) =>
+              option
+                .setName("username")
+                .setDescription(
+                  "Username or UUID of the minecraft player you want information about"
+                )
+                .setRequired(true)
+            )
     ),
 
   async execute(interaction: ChatInputCommandInteraction) {
