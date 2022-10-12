@@ -40,7 +40,19 @@ module.exports = {
     .addSubcommand((subcommand) =>
       subcommand
         .setName("server")
-        .setDescription("Information about the Minecraft server")
+        .setDescription("Information about the Minecraft server.")
+    ).addSubcommand(subcommand =>
+      subcommand
+        .setName('player')
+        .setDescription('description')
+        .addStringOption((option) =>
+              option
+                .setName("username")
+                .setDescription(
+                  "The username of the player you want info about"
+                )
+                .setRequired(true)
+            )
     ),
 
   async execute(interaction: CommandInteraction) {
