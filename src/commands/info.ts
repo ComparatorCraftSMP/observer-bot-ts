@@ -80,7 +80,7 @@ module.exports = {
         case "guild":
           const client = interaction.client;
 
-          const guild = interaction.guild;
+          const guild = await interaction.guild?.fetch();
 
           const command = await client.application.commands.fetch();
 
@@ -88,7 +88,7 @@ module.exports = {
           const channelCount = channel?.size;
 
           const roles = await guild?.roles.fetch();
-          const roleCount = roles.size;
+          const roleCount = roles?.size;
 
           const matchUnderscore = /(_)/g;
 
@@ -154,10 +154,10 @@ module.exports = {
                 name: "<:icons_colorboostnitro:869528229436858378> Boosting",
                 value: `Shows Progress Bar: ${
                   guild?.premiumProgressBarEnabled
-                }\nBoosting Tier: ${guild?.premiumTier
+                }\nBoosting Tier: ${guild?.premiumTier.toString()
                   .replace(matchUnderscore, " ")
                   .toLowerCase()
-                  .replace(/(^|\s)\S/g, (L) =>
+                  .replace(/(^|\s)\S/g, (L: any) =>
                     L.toUpperCase()
                   )}\nTotal Boost Count: ${guild?.premiumSubscriptionCount}`,
                 inline: true,
