@@ -11,6 +11,7 @@ import {
   ButtonBuilder,
   ButtonStyle,
   MessageActionRowComponentBuilder,
+  ChatInputCommandInteraction,
 } from "discord.js";
 
 module.exports = {
@@ -53,12 +54,17 @@ module.exports = {
                 )
                 .setRequired(true)
             )
+    )
+    .addSubcommand(subcommand =>
+      subcommand
+        .setName('mc_user')
+        .setDescription('Information about an user on minecraft')
     ),
 
-  async execute(interaction: CommandInteraction) {
+  async execute(interaction: ChatInputCommandInteraction) {
     try {
       // code here
-      await interaction.reply("pong");
+      
     } catch (error) {
       await interaction.reply({
         content: "There was an error",
