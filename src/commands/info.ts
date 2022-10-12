@@ -13,8 +13,8 @@ import {
   MessageActionRowComponentBuilder,
   ChatInputCommandInteraction,
 } from "discord.js";
-
 import { client } from "../..";
+
 import { config } from "../../config";
 
 module.exports = {
@@ -103,7 +103,8 @@ module.exports = {
             .join("\n");
 
           const embed = new EmbedBuilder()
-            .setColor(`${config.embedColor}`)
+          // @ts-ignore
+            .setColor(config.embedColor)
             .setTitle(`Information about ${guild?.name}`)
             .addFields(
               {
@@ -119,14 +120,18 @@ module.exports = {
               {
                 name: "<:icons_calendar1:941679946760351794> Date Created",
                 value: `<t:${Math.round(
+                  // @ts-ignore
                   guild?.createdAt / 1000
+                  // @ts-ignore
                 )}:F> or <t:${Math.round(guild.createdAt / 1000)}:R>`,
                 inline: true,
               },
               {
                 name: "<:icons_calendar1:941679946760351794> Bot Join Date",
                 value: `<t:${Math.round(
+                  // @ts-ignore
                   guild.joinedTimestamp / 1000
+                  // @ts-ignore
                 )}:F> or <t:${Math.round(guild.joinedTimestamp / 1000)}:R>`,
                 inline: true,
               },
@@ -142,6 +147,7 @@ module.exports = {
               },
               {
                 name: "<:icons_colorstaff:869554761840603196> Affiliation",
+                // @ts-ignore
                 value: `<:icons_colorserverpartner:869529747447746600> Partnered: ${guild?.partnered}\n<:icons_colorserververified:869529747846234162> Verified: ${guild.verified}`,
                 inline: true,
               },
@@ -168,8 +174,10 @@ module.exports = {
               }
             )
             .setThumbnail(client.user.avatarURL({ forceStatic: false })!);
-
-          await interaction.reply({ embeds: [embed] });
+          const wait = require('node:timers/promises').setTimeout
+          await interaction.reply('Getting the info');
+		      await wait(2000);
+          await interaction.editReply({  embeds: [embed], content: '' });
           break;
       }
     } catch (error) {
@@ -181,3 +189,4 @@ module.exports = {
     }
   },
 };
+
