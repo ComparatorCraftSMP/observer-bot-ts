@@ -45,7 +45,7 @@ module.exports = {
     ).addSubcommand(subcommand =>
       subcommand
         .setName('player')
-        .setDescription('description')
+        .setDescription('The player on the Minecraft server you want info about.')
         .addStringOption((option) =>
               option
                 .setName("username")
