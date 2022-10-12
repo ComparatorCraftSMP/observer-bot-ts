@@ -14,7 +14,12 @@ import {
 } from "discord.js";
 
 module.exports = {
-  data: new SlashCommandBuilder().setName("info").setDescription("information"),
+  data: new SlashCommandBuilder()
+    .setName("info")
+    .setDescription("Get information about the discord and minecraft server.")
+    .addSubcommand((subcommand) =>
+      subcommand.setName("name").setDescription("description")
+    ),
 
   async execute(interaction: CommandInteraction) {
     try {
