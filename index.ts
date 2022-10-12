@@ -28,6 +28,7 @@ export const client: any = new Client({
     GatewayIntentBits.DirectMessages,
     GatewayIntentBits.DirectMessageReactions,
     GatewayIntentBits.DirectMessageTyping,
+    GatewayIntentBits.GuildEmojisAndStickers
   ],
   partials: [
     Partials.Channel, // Required to receive DMs
