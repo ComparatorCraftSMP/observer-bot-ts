@@ -72,7 +72,11 @@ module.exports = {
   async execute(interaction: ChatInputCommandInteraction) {
     try {
       // code here
-      
+      switch (interaction.options.getSubcommand()) {
+        case "guild":
+          
+          break;
+      }
     } catch (error) {
       await interaction.reply({
         content: "There was an error",
