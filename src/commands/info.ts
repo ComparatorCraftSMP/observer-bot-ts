@@ -31,9 +31,16 @@ module.exports = {
         .addUserOption((option) =>
           option
             .setName("member")
-            .setDescription("The member of the Discord server you want info about.")
+            .setDescription(
+              "The member of the Discord server you want info about."
+            )
             .setRequired(true)
         )
+    )
+    .addSubcommand((subcommand) =>
+      subcommand
+        .setName("server")
+        .setDescription("Information about the Minecraft server")
     ),
 
   async execute(interaction: CommandInteraction) {
