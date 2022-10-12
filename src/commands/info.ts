@@ -21,6 +21,13 @@ module.exports = {
       subcommand
         .setName("guild")
         .setDescription("Information about the Discord server/guild.")
+    )
+    .addSubcommand((subcommand) =>
+      subcommand
+        .setName("member")
+        .setDescription(
+          "Information about a member on the Discord server/guild."
+        )
     ),
 
   async execute(interaction: CommandInteraction) {
