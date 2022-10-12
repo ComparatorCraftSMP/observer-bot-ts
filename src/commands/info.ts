@@ -28,6 +28,12 @@ module.exports = {
         .setDescription(
           "Information about a member on the Discord server/guild."
         )
+        .addUserOption((option) =>
+          option
+            .setName("member")
+            .setDescription("The member of the Discord server you want info about.")
+            .setRequired(true)
+        )
     ),
 
   async execute(interaction: CommandInteraction) {
