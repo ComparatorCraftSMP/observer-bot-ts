@@ -78,7 +78,7 @@ module.exports = {
       // code here
       switch (interaction.options.getSubcommand()) {
         case "guild":
-          const client = interaction.client;
+
 
           const guild = await interaction.guild?.fetch();
 
@@ -181,10 +181,10 @@ module.exports = {
           await interaction.editReply({ embeds: [embed] });
           break;
         case "member":
-          const user = interaction.options.getUser("user");
+          const user = interaction.options.getUser("member");
 
           const gld = interaction.guild;
-          const member = await gld?.members.fetch(user!);
+          const member = await gld?.members.fetch(`${user?.id}`);
 
           const memberRoles = member?.roles.cache;
           const memberRoleCount = memberRoles?.size;
@@ -221,7 +221,7 @@ module.exports = {
                 inline: true,
               },
               {
-                name: `<:icons_clock:964491800465276940> Joined ${gld.name}`,
+                name: `<:icons_clock:964491800465276940> Joined ${gld?.name}`,
                 value: `<t:${Math.round(
                   // @ts-ignore
                   member.joinedTimestamp / 1000
@@ -241,8 +241,15 @@ module.exports = {
               }
             )
             .setThumbnail(user?.avatarURL({ forceStatic: false })!);
-
-          await interaction.reply({ embeds: [memberEmbed] });
+          try {
+            await interaction.reply({ embeds: [memberEmbed] });
+          } catch (error) {
+            await interaction.reply({
+              content: "There was an error",
+              ephemeral: true,
+            });
+            console.error(error);
+          }
       }
     } catch (error) {
       await interaction.reply({
