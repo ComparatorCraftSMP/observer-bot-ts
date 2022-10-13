@@ -209,7 +209,7 @@ module.exports = {
           const memberEmbed = new EmbedBuilder()
             // @ts-ignore
             .setColor(member?.displayHexColor)
-            .setTitle(`Information about ${member?.pending}`)
+            .setTitle(`Information about ${member?.displayName}`)
             .addFields(
               {
                 name: "<:icons_calendar1:941679946760351794> Joined Discord",
