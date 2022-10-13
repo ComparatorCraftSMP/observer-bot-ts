@@ -103,7 +103,7 @@ module.exports = {
             .join("\n");
 
           const embed = new EmbedBuilder()
-          // @ts-ignore
+            // @ts-ignore
             .setColor(config.embedColor)
             .setTitle(`Information about ${guild?.name}`)
             .addFields(
@@ -160,7 +160,8 @@ module.exports = {
                 name: "<:icons_colorboostnitro:869528229436858378> Boosting",
                 value: `Shows Progress Bar: ${
                   guild?.premiumProgressBarEnabled
-                }\nBoosting Tier: ${guild?.premiumTier.toString()
+                }\nBoosting Tier: ${guild?.premiumTier
+                  .toString()
                   .replace(matchUnderscore, " ")
                   .toLowerCase()
                   .replace(/(^|\s)\S/g, (L: any) =>
@@ -174,11 +175,13 @@ module.exports = {
               }
             )
             .setThumbnail(client.user.avatarURL({ forceStatic: false })!);
-          const wait = require('node:timers/promises').setTimeout
-          await interaction.reply('Getting the info');
-		      await wait(2000);
-          await interaction.editReply({  embeds: [embed], content: '' });
+          const wait = require("node:timers/promises").setTimeout;
+          await interaction.reply({ embeds: [embed] });
+          await wait(1);
+          await interaction.editReply({ embeds: [embed] });
           break;
+        case "member": 
+         
       }
     } catch (error) {
       await interaction.reply({
@@ -189,4 +192,3 @@ module.exports = {
     }
   },
 };
-
