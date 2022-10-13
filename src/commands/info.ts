@@ -102,7 +102,7 @@ module.exports = {
             )
             .join("\n");
 
-          const memberEmbed = new EmbedBuilder()
+          const embed = new EmbedBuilder()
             // @ts-ignore
             .setColor(config.embedColor)
             .setTitle(`Information about ${guild?.name}`)
@@ -181,15 +181,16 @@ module.exports = {
           await interaction.editReply({ embeds: [embed] });
           break;
         case "member":
-          
           const user = interaction.options.getUser("user");
-          
+
           const gld = interaction.guild;
           const member = await gld?.members.fetch(user!);
 
           const memberRoles = member?.roles.cache;
           const memberRoleCount = memberRoles?.size;
-          const rolesList = memberRoles?.map((role: any) => `<@&${role.id}>`).join(", ");
+          const rolesList = memberRoles
+            ?.map((role: any) => `<@&${role.id}>`)
+            .join(", ");
 
           const undRemove = /(_)/g;
 
@@ -205,22 +206,26 @@ module.exports = {
             )
             .join("\n");
 
-          const embed = new EmbedBuilder()
-          
+          const memberEmbed = new EmbedBuilder()
+            // @ts-ignore
             .setColor(config.embedColor)
             .setTitle(`Information about ${member?.pending}`)
             .addFields(
               {
                 name: "<:icons_calendar1:941679946760351794> Joined Discord",
                 value: `<t:${Math.round(
+                  // @ts-ignore
                   user.createdTimestamp / 1000
+                  // @ts-ignore
                 )}:F> or <t:${Math.round(user.createdTimestamp / 1000)}:R>`,
                 inline: true,
               },
               {
                 name: `<:icons_clock:964491800465276940> Joined ${gld.name}`,
                 value: `<t:${Math.round(
+                  // @ts-ignore
                   member.joinedTimestamp / 1000
+                  // @ts-ignore
                 )}:F> or <t:${Math.round(member.joinedTimestamp / 1000)}:R>`,
                 inline: true,
               },
@@ -237,7 +242,7 @@ module.exports = {
             )
             .setThumbnail(user?.avatarURL({ forceStatic: false })!);
 
-          await interaction.reply({ embeds: [embed] });
+          await interaction.reply({ embeds: [memberEmbed] });
       }
     } catch (error) {
       await interaction.reply({
