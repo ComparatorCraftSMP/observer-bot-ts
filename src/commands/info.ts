@@ -181,20 +181,21 @@ module.exports = {
           await interaction.editReply({ embeds: [embed] });
           break;
         case "member":
-          const member = interaction.options.getMember("user");
+          
           const user = interaction.options.getUser("user");
-
+          
           const gld = interaction.guild;
+          const member = await gld?.members.fetch(user!);
 
           const memberRoles = member?.roles.cache;
-          const memberRoleCount = memberRoles.size;
-          const rolesList = memberRoles.map((role: any) => `<@&${role.id}>`).join(", ");
+          const memberRoleCount = memberRoles?.size;
+          const rolesList = memberRoles?.map((role: any) => `<@&${role.id}>`).join(", ");
 
           const undRemove = /(_)/g;
 
           const flag = await user?.fetchFlags();
           const flagList = flag
-            .toArray()
+            ?.toArray()
             .map(
               (fe) =>
                 `<:icons_Correct:859388130411282442> ${fe
@@ -205,6 +206,7 @@ module.exports = {
             .join("\n");
 
           const embed = new EmbedBuilder()
+          
             .setColor(config.embedColor)
             .setTitle(`Information about ${member?.pending}`)
             .addFields(
