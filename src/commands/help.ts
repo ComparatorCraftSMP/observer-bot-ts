@@ -11,6 +11,7 @@ import {
   ButtonBuilder,
   ButtonStyle,
   MessageActionRowComponentBuilder,
+  ApplicationCommandOption,
 } from "discord.js";
 
 module.exports = {
@@ -25,26 +26,26 @@ module.exports = {
       const cmd = await client.application?.commands.fetch();
 
       commandsList = cmd
-        ?.map(
-          (cmd: ApplicationCommand) => {
-            if(cmd.options.length > 0){
-
-            } else {
-              
-            }
+        ?.map((cmd: ApplicationCommand) => {
+          if (cmd.options.length > 0) {
+          return  cmd.options.map(
+              (opt: ApplicationCommandOption) =>
+                `**/${cmd.name} ${opt.name}** - ${opt.description}`
+            ).join("\n");
+          } else {
+           return `**/${cmd.name}** - ${cmd.description}`;
           }
-          
-          
-        )
+        })
         .join("\n");
-
-      const row = new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(
-        new ButtonBuilder()
-          .setCustomId("botInfo")
-          .setEmoji("🤖")
-          .setStyle(ButtonStyle.Primary)
-          .setLabel("Bot Info"),
-      );
+       
+      const row =
+        new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(
+          new ButtonBuilder()
+            .setCustomId("botInfo")
+            .setEmoji("🤖")
+            .setStyle(ButtonStyle.Primary)
+            .setLabel("Bot Info")
+        );
 
       const embed = new EmbedBuilder()
         .setColor(`#6bde36`)
