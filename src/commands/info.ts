@@ -102,7 +102,7 @@ module.exports = {
             )
             .join("\n");
 
-          const embed = new EmbedBuilder()
+          const memberEmbed = new EmbedBuilder()
             // @ts-ignore
             .setColor(config.embedColor)
             .setTitle(`Information about ${guild?.name}`)
@@ -186,13 +186,13 @@ module.exports = {
 
           const gld = interaction.guild;
 
-          const roles = member.roles.cache;
-          const roleCount = roles.size;
-          const rolesList = roles.map((role) => `<@&${role.id}>`).join(", ");
+          const memberRoles = member?.roles.cache;
+          const memberRoleCount = memberRoles.size;
+          const rolesList = memberRoles.map((role: any) => `<@&${role.id}>`).join(", ");
 
           const undRemove = /(_)/g;
 
-          const flag = await user.fetchFlags();
+          const flag = await user?.fetchFlags();
           const flagList = flag
             .toArray()
             .map(
@@ -204,9 +204,9 @@ module.exports = {
             )
             .join("\n");
 
-          const embed = new MessageEmbed()
-            .setColor(`${embedColor}`)
-            .setTitle(`Information about ${member.displayName}`)
+          const embed = new EmbedBuilder()
+            .setColor(config.embedColor)
+            .setTitle(`Information about ${member?.pending}`)
             .addFields(
               {
                 name: "<:icons_calendar1:941679946760351794> Joined Discord",
@@ -233,7 +233,7 @@ module.exports = {
                 inline: true,
               }
             )
-            .setThumbnail(member.displayAvatarURL({ dynamic: true }));
+            .setThumbnail(user?.avatarURL({ forceStatic: false })!);
 
           await interaction.reply({ embeds: [embed] });
       }
