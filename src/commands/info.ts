@@ -208,7 +208,7 @@ module.exports = {
 
           const memberEmbed = new EmbedBuilder()
             // @ts-ignore
-            .setColor(config.embedColor)
+            .setColor(member?.displayHexColor)
             .setTitle(`Information about ${member?.pending}`)
             .addFields(
               {
@@ -243,6 +243,7 @@ module.exports = {
             .setThumbnail(user?.avatarURL({ forceStatic: false })!);
           try {
             await interaction.reply({ embeds: [memberEmbed] });
+            await interaction.editReply({embeds: [memberEmbed]})
           } catch (error) {
             await interaction.reply({
               content: "There was an error",
