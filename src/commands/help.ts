@@ -26,7 +26,15 @@ module.exports = {
 
       commandsList = cmd
         ?.map(
-          (cmd: ApplicationCommand) => `**/${cmd.name}** - ${cmd.description}`
+          (cmd: ApplicationCommand) => {
+            if(cmd.options.length > 0){
+
+            } else {
+              
+            }
+          }
+          
+          
         )
         .join("\n");
 
