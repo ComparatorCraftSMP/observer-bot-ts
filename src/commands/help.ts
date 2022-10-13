@@ -28,16 +28,21 @@ module.exports = {
       commandsList = cmd
         ?.map((cmd: ApplicationCommand) => {
           if (cmd.options.length > 0) {
-          return  cmd.options.map(
-              (opt: ApplicationCommandOption) =>
-                `**/${cmd.name} ${opt.name}** - ${opt.description}`
-            ).join("\n");
+            return cmd.options
+              .map((opt: ApplicationCommandOption) => {
+                if (opt.type === 1) {
+                  return `**/${cmd.name} ${opt.name}** - ${opt.description}`;
+                } else {
+                  return `**/${cmd.name}** - ${cmd.description}`
+                }
+              })
+              .join("\n");
           } else {
-           return `**/${cmd.name}** - ${cmd.description}`;
+            return `**/${cmd.name}** - ${cmd.description}`;
           }
         })
         .join("\n");
-       
+
       const row =
         new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(
           new ButtonBuilder()
