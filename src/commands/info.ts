@@ -251,6 +251,9 @@ module.exports = {
             });
             console.error(error);
           }
+        case "server":
+        case "player":
+        case "mc_user":    
       }
     } catch (error) {
       await interaction.reply({
