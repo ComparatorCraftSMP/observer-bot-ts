@@ -35,5 +35,6 @@ export const config = {
       "member_role": "",
       "applicant_role": "",
       "message": ""
-  }
+  },
+  "plan": ""
 }
