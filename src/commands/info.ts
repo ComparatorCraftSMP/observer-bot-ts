@@ -252,6 +252,12 @@ module.exports = {
             console.error(error);
           }
         case "server":
+          try {
+            
+            
+          } catch (error) {
+            
+          }
         case "player":
         case "mc_user":    
       }
