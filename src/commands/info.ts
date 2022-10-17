@@ -17,6 +17,7 @@ import {
 import { client } from "../..";
 
 import { config } from "../../config";
+import fetchPlaceholder from "../utils/fetchPlaceholder";
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -276,7 +277,7 @@ module.exports = {
               .addFields(
                 {
                   name: "<:icons_people:964425853930995783> Players Online",
-                  value: "Some value here",
+                  value: `${fetchPlaceholder('', '')}`,
                   inline: true,
                 },
                 {
