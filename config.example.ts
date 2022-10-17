@@ -37,5 +37,6 @@ export const config = {
       "message": ""
   },
   "plan": {"url": "", "server": ""},
-  "dynmap": ""
+  "dynmap": "",
+  "ip": ""
 }
