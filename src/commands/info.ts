@@ -1,3 +1,4 @@
+import fetch from "cross-fetch";
 import {
   Interaction,
   EmbedBuilder,
@@ -253,7 +254,12 @@ module.exports = {
           }
         case "server":
           try {
+
+            const serverReq = await fetch(`${process.env.SERVER}`,{method: 'GET', headers: {Accept: 'application/json', key: `${process.env.API}`}} )
+            const serverData = await serverReq.json()
             
+            const planOverviewReq = await fetch(`${config.plan.url}/v1/serverOverview?server=${config.plan.server}`, {method: 'GET'})
+            const planOverviewData = await planOverviewReq.json()
             
           } catch (error) {
             
