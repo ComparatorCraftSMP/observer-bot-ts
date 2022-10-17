@@ -295,7 +295,7 @@ module.exports = {
                 },
                 {
                   name: "<:icons_goodping:880113406915538995> TPS",
-                  value: "Some value here",
+                  value: `${serverData.tps}`,
                   inline: true,
                 },
                 {
