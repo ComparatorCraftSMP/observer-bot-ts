@@ -36,6 +36,6 @@ export const config = {
       "applicant_role": "",
       "message": ""
   },
-  "plan": "",
+  "plan": {"url": "", "server": ""},
   "dynmap": ""
 }
