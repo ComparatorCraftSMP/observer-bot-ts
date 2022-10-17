@@ -79,8 +79,6 @@ module.exports = {
       // code here
       switch (interaction.options.getSubcommand()) {
         case "guild":
-
-
           const guild = await interaction.guild?.fetch();
 
           const command = await client.application.commands.fetch();
@@ -244,7 +242,7 @@ module.exports = {
             .setThumbnail(user?.avatarURL({ forceStatic: false })!);
           try {
             await interaction.reply({ embeds: [memberEmbed] });
-            await interaction.editReply({embeds: [memberEmbed]})
+            await interaction.editReply({ embeds: [memberEmbed] });
           } catch (error) {
             await interaction.reply({
               content: "There was an error",
@@ -254,18 +252,66 @@ module.exports = {
           }
         case "server":
           try {
+            const serverReq = await fetch(`${process.env.SERVER}`, {
+              method: "GET",
+              headers: {
+                Accept: "application/json",
+                key: `${process.env.API}`,
+              },
+            });
+            const serverData = await serverReq.json();
 
-            const serverReq = await fetch(`${process.env.SERVER}`,{method: 'GET', headers: {Accept: 'application/json', key: `${process.env.API}`}} )
-            const serverData = await serverReq.json()
-            
-            const planOverviewReq = await fetch(`${config.plan.url}/v1/serverOverview?server=${config.plan.server}`, {method: 'GET'})
-            const planOverviewData = await planOverviewReq.json()
-            
-          } catch (error) {
-            
-          }
+            const planOverviewReq = await fetch(
+              `${config.plan.url}/v1/serverOverview?server=${config.plan.server}`,
+              { method: "GET" }
+            );
+            const planOverviewData = await planOverviewReq.json();
+
+            const serverEmbed = new EmbedBuilder()
+              .setColor(`#6bde36`)
+              .setTitle(`Information about the Minecraft Server`)
+              .setThumbnail(
+                interaction.user?.avatarURL({ forceStatic: false })!
+              )
+              .setURL("https://analog-ts.bossdaily.me/")
+              .setAuthor({
+                name: "Some name",
+                iconURL:
+                  "https://avatars.githubusercontent.com/u/110413696?s=200&v=4",
+                url: "https://analog-ts.bossdaily.me/",
+              })
+              .setDescription("Some description here")
+              .addFields(
+                { name: "Regular field title", value: "Some value here" },
+                { name: "\u200B", value: "\u200B" },
+                {
+                  name: "Inline field title",
+                  value: "Some value here",
+                  inline: true,
+                },
+                {
+                  name: "Inline field title",
+                  value: "Some value here",
+                  inline: true,
+                }
+              )
+              .addFields({
+                name: "Inline field title",
+                value: "Some value here",
+                inline: true,
+              })
+              .setImage(
+                "https://avatars.githubusercontent.com/u/110413696?s=200&v=4"
+              )
+              .setTimestamp()
+              .setFooter({
+                text: "Some footer text here",
+                iconURL:
+                  "https://avatars.githubusercontent.com/u/110413696?s=200&v=4",
+              });
+          } catch (error) {}
         case "player":
-        case "mc_user":    
+        case "mc_user":
       }
     } catch (error) {
       await interaction.reply({
