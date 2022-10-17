@@ -305,7 +305,7 @@ module.exports = {
                 },
                 {
                   name: "<:icons_bulb:882595243579559958> Uptime",
-                  value: "Some value here",
+                  value: `${planOverviewData.numbers.current_uptime}`,
                   inline: true,
                 },
                 {
