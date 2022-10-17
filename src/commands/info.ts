@@ -309,12 +309,12 @@ module.exports = {
                   inline: true,
                 },
                 {
-                  name: "<:icons_swardx:866599435214389258> Total Kills",
-                  value: "Some value here",
+                  name: "<:icons_swardx:866599435214389258> Total Player Kills",
+                  value: `${planOverviewData.numbers.player_kills}`,
                   inline: true,
                 },
                 {
-                  name: "<:icons_kick:859424400557604886> Total Deaths",
+                  name: "<:icons_kick:859424400557604886> Total Player Deaths",
                   value: "Some value here",
                   inline: true,
                 },
