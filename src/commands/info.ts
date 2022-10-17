@@ -275,47 +275,47 @@ module.exports = {
               )
               .addFields(
                 {
-                  name: "Inline field title",
+                  name: "<:icons_people:964425853930995783> Players Online",
                   value: "Some value here",
                   inline: true,
                 },
                 {
-                  name: "Inline field title",
+                  name: "<:icons_box:869507189298040833> Software",
                   value: "Some value here",
                   inline: true,
                 },
                 {
-                  name: "Inline field title",
+                  name: "<:icons_channel:859424401950113822> Version",
                   value: "Some value here",
                   inline: true,
                 },
                 {
-                  name: "Inline field title",
+                  name: "<:icons_goodping:880113406915538995> TPS",
                   value: "Some value here",
                   inline: true,
                 },
                 {
-                  name: "Inline field title",
+                  name: "<:icons_globe:859424401971609600> Total Chunks",
                   value: "Some value here",
                   inline: true,
                 },
                 {
-                  name: "Inline field title",
+                  name: "<:icons_bulb:882595243579559958> Uptime",
                   value: "Some value here",
                   inline: true,
                 },
                 {
-                  name: "Inline field title",
+                  name: "<:icons_swardx:866599435214389258> Total Kills",
                   value: "Some value here",
                   inline: true,
                 },
                 {
-                  name: "Inline field title",
+                  name: "<:icons_kick:859424400557604886> Total Deaths",
                   value: "Some value here",
                   inline: true,
                 },
                 {
-                  name: "Inline field title",
+                  name: "<:icons_clock:964491800465276940> Total Playtime",
                   value: "Some value here",
                   inline: true,
                 }
