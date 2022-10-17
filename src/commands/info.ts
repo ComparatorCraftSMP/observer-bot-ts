@@ -271,7 +271,7 @@ module.exports = {
               .setColor(`#6bde36`)
               .setTitle(`Information about the Minecraft Server`)
               .setThumbnail(
-                interaction.user?.avatarURL({ forceStatic: false })!
+                `https://eu.mc-api.net/v3/server/favicon/${config.ip}`
               )
               .addFields(
                 {
