@@ -273,17 +273,7 @@ module.exports = {
               .setThumbnail(
                 interaction.user?.avatarURL({ forceStatic: false })!
               )
-              .setURL("https://analog-ts.bossdaily.me/")
-              .setAuthor({
-                name: "Some name",
-                iconURL:
-                  "https://avatars.githubusercontent.com/u/110413696?s=200&v=4",
-                url: "https://analog-ts.bossdaily.me/",
-              })
-              .setDescription("Some description here")
               .addFields(
-                { name: "Regular field title", value: "Some value here" },
-                { name: "\u200B", value: "\u200B" },
                 {
                   name: "Inline field title",
                   value: "Some value here",
@@ -295,20 +285,7 @@ module.exports = {
                   inline: true,
                 }
               )
-              .addFields({
-                name: "Inline field title",
-                value: "Some value here",
-                inline: true,
-              })
-              .setImage(
-                "https://avatars.githubusercontent.com/u/110413696?s=200&v=4"
-              )
-              .setTimestamp()
-              .setFooter({
-                text: "Some footer text here",
-                iconURL:
-                  "https://avatars.githubusercontent.com/u/110413696?s=200&v=4",
-              });
+    
           } catch (error) {}
         case "player":
         case "mc_user":
