@@ -277,7 +277,10 @@ module.exports = {
               .addFields(
                 {
                   name: "<:icons_people:964425853930995783> Players Online",
-                  value: `${await fetchPlaceholder('8b005697-0c91-42bd-b404-9e065e08fbb8', '%server_online%')}/${await fetchPlaceholder('8b005697-0c91-42bd-b404-9e065e08fbb8', '%server_max_players%')}`,
+                  value: `${await fetchPlaceholder(
+                    "8b005697-0c91-42bd-b404-9e065e08fbb8",
+                    "%server_online%/%server_max_players%"
+                  )}`,
                   inline: true,
                 },
                 {
@@ -320,9 +323,9 @@ module.exports = {
                   value: "Some value here",
                   inline: true,
                 }
-              )
-              await interaction.reply({ embeds: [serverEmbed] });
-              await interaction.editReply({ embeds: [serverEmbed] });
+              );
+            await interaction.reply({ embeds: [serverEmbed] });
+            await interaction.editReply({ embeds: [serverEmbed] });
           } catch (error) {
             await interaction.reply({
               content: "The server isn't up",
