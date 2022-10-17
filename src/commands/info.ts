@@ -290,7 +290,7 @@ module.exports = {
                 },
                 {
                   name: "<:icons_channel:859424401950113822> Version",
-                  value: "Some value here",
+                  value: `${serverData.version}`,
                   inline: true,
                 },
                 {
