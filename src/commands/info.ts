@@ -320,7 +320,7 @@ module.exports = {
                 },
                 {
                   name: "<:icons_clock:964491800465276940> Total Playtime",
-                  value: "Some value here",
+                  value: `${planOverviewData.numbers.playtime}`,
                   inline: true,
                 }
               );
