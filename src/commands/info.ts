@@ -300,7 +300,7 @@ module.exports = {
                 },
                 {
                   name: "<:icons_globe:859424401971609600> Total Chunks",
-                  value: "Some value here",
+                  value: `${await fetchPlaceholder('8b005697-0c91-42bd-b404-9e065e08fbb8', '%server_total_chunks%')}`,
                   inline: true,
                 },
                 {
