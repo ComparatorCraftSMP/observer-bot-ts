@@ -253,7 +253,7 @@ module.exports = {
           }
         case "server":
           try {
-            const serverReq = await fetch(`${process.env.SERVER}`, {
+            const serverReq = await fetch(`${process.env.SERVER}/v1/server`, {
               method: "GET",
               headers: {
                 Accept: "application/json",
@@ -285,7 +285,7 @@ module.exports = {
                 },
                 {
                   name: "<:icons_box:869507189298040833> Software",
-                  value: "Some value here",
+                  value: `${serverData.name}`,
                   inline: true,
                 },
                 {
