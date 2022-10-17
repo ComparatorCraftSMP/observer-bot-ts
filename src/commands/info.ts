@@ -321,7 +321,8 @@ module.exports = {
                   inline: true,
                 }
               )
-    
+              await interaction.reply({ embeds: [serverEmbed] });
+              await interaction.editReply({ embeds: [serverEmbed] });
           } catch (error) {
             await interaction.reply({
               content: "The server isn't up",
