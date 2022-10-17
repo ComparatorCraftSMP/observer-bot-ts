@@ -315,7 +315,7 @@ module.exports = {
                 },
                 {
                   name: "<:icons_kick:859424400557604886> Total Player Deaths",
-                  value: "Some value here",
+                  value: `${planOverviewData.numbers.deaths}`,
                   inline: true,
                 },
                 {
