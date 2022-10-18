@@ -18,6 +18,7 @@ import { client } from "../..";
 
 import { config } from "../../config";
 import fetchPlaceholder from "../utils/fetchPlaceholder";
+const wait = require('node:timers/promises').setTimeout;
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -178,6 +179,7 @@ module.exports = {
               .setThumbnail(client.user.avatarURL({ forceStatic: false })!);
 
             await interaction.reply({ embeds: [guildEmbed] });
+            await wait(1)
             await interaction.editReply({ embeds: [guildEmbed] });
           } catch (error) {
             await interaction.reply({
