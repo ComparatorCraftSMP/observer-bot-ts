@@ -80,106 +80,113 @@ module.exports = {
       // code here
       switch (interaction.options.getSubcommand()) {
         case "guild":
-          const guild = await interaction.guild?.fetch();
+          try {
+            const guild = await interaction.guild?.fetch();
 
-          const command = await client.application.commands.fetch();
+            const command = await client.application.commands.fetch();
 
-          const channel = await guild?.channels.fetch();
-          const channelCount = channel?.size;
+            const channel = await guild?.channels.fetch();
+            const channelCount = channel?.size;
 
-          const roles = await guild?.roles.fetch();
-          const roleCount = roles?.size;
+            const roles = await guild?.roles.fetch();
+            const roleCount = roles?.size;
 
-          const matchUnderscore = /(_)/g;
+            const matchUnderscore = /(_)/g;
 
-          const feature = guild?.features
-            .map(
-              (fe) =>
-                `<:icons_Correct:859388130411282442> ${fe
-                  .replace(matchUnderscore, " ")
-                  .toLowerCase()
-                  .replace(/(^|\s)\S/g, (L) => L.toUpperCase())}`
-            )
-            .join("\n");
+            const feature = guild?.features
+              .map(
+                (fe) =>
+                  `<:icons_Correct:859388130411282442> ${fe
+                    .replace(matchUnderscore, " ")
+                    .toLowerCase()
+                    .replace(/(^|\s)\S/g, (L) => L.toUpperCase())}`
+              )
+              .join("\n");
 
-          const embed = new EmbedBuilder()
-            // @ts-ignore
-            .setColor(config.embedColor)
-            .setTitle(`Information about ${guild?.name}`)
-            .addFields(
-              {
-                name: "<:icons_shine1:859424400959602718> Owner",
-                value: `<@${guild?.ownerId}>`,
-                inline: true,
-              },
-              {
-                name: "<:icons_people:964425853930995783> Members",
-                value: `Member Count: ${guild?.memberCount}`,
-                inline: true,
-              },
-              {
-                name: "<:icons_calendar1:941679946760351794> Date Created",
-                value: `<t:${Math.round(
+            const guildEmbed = new EmbedBuilder()
+              // @ts-ignore
+              .setColor(config.embedColor)
+              .setTitle(`Information about ${guild?.name}`)
+              .addFields(
+                {
+                  name: "<:icons_shine1:859424400959602718> Owner",
+                  value: `<@${guild?.ownerId}>`,
+                  inline: true,
+                },
+                {
+                  name: "<:icons_people:964425853930995783> Members",
+                  value: `Member Count: ${guild?.memberCount}`,
+                  inline: true,
+                },
+                {
+                  name: "<:icons_calendar1:941679946760351794> Date Created",
+                  value: `<t:${Math.round(
+                    // @ts-ignore
+                    guild?.createdAt / 1000
+                    // @ts-ignore
+                  )}:F> or <t:${Math.round(guild.createdAt / 1000)}:R>`,
+                  inline: true,
+                },
+                {
+                  name: "<:icons_calendar1:941679946760351794> Bot Join Date",
+                  value: `<t:${Math.round(
+                    // @ts-ignore
+                    guild.joinedTimestamp / 1000
+                    // @ts-ignore
+                  )}:F> or <t:${Math.round(guild.joinedTimestamp / 1000)}:R>`,
+                  inline: true,
+                },
+                {
+                  name: "<:icons_pen:869507189553922061> Commands (from this bot)",
+                  value: `${command.size}`,
+                  inline: true,
+                },
+                {
+                  name: "<:icons_channel:859424401950113822> Channels",
+                  value: `${channelCount}`,
+                  inline: true,
+                },
+                {
+                  name: "<:icons_colorstaff:869554761840603196> Affiliation",
                   // @ts-ignore
-                  guild?.createdAt / 1000
-                  // @ts-ignore
-                )}:F> or <t:${Math.round(guild.createdAt / 1000)}:R>`,
-                inline: true,
-              },
-              {
-                name: "<:icons_calendar1:941679946760351794> Bot Join Date",
-                value: `<t:${Math.round(
-                  // @ts-ignore
-                  guild.joinedTimestamp / 1000
-                  // @ts-ignore
-                )}:F> or <t:${Math.round(guild.joinedTimestamp / 1000)}:R>`,
-                inline: true,
-              },
-              {
-                name: "<:icons_pen:869507189553922061> Commands (from this bot)",
-                value: `${command.size}`,
-                inline: true,
-              },
-              {
-                name: "<:icons_channel:859424401950113822> Channels",
-                value: `${channelCount}`,
-                inline: true,
-              },
-              {
-                name: "<:icons_colorstaff:869554761840603196> Affiliation",
-                // @ts-ignore
-                value: `<:icons_colorserverpartner:869529747447746600> Partnered: ${guild?.partnered}\n<:icons_colorserververified:869529747846234162> Verified: ${guild.verified}`,
-                inline: true,
-              },
-              {
-                name: "<:icons_dblurple:875710295258046535> Roles",
-                value: `${roleCount}`,
-                inline: true,
-              },
-              {
-                name: "<:icons_colorboostnitro:869528229436858378> Boosting",
-                value: `Shows Progress Bar: ${
-                  guild?.premiumProgressBarEnabled
-                }\nBoosting Tier: ${guild?.premiumTier
-                  .toString()
-                  .replace(matchUnderscore, " ")
-                  .toLowerCase()
-                  .replace(/(^|\s)\S/g, (L: any) =>
-                    L.toUpperCase()
-                  )}\nTotal Boost Count: ${guild?.premiumSubscriptionCount}`,
-                inline: true,
-              },
-              {
-                name: "<:icons_linked:875395222962585660> Features",
-                value: `${feature}`,
-              }
-            )
-            .setThumbnail(client.user.avatarURL({ forceStatic: false })!);
-          const wait = require("node:timers/promises").setTimeout;
-          await interaction.reply({ embeds: [embed] });
-          await wait(1);
-          await interaction.editReply({ embeds: [embed] });
-          break;
+                  value: `<:icons_colorserverpartner:869529747447746600> Partnered: ${guild?.partnered}\n<:icons_colorserververified:869529747846234162> Verified: ${guild.verified}`,
+                  inline: true,
+                },
+                {
+                  name: "<:icons_dblurple:875710295258046535> Roles",
+                  value: `${roleCount}`,
+                  inline: true,
+                },
+                {
+                  name: "<:icons_colorboostnitro:869528229436858378> Boosting",
+                  value: `Shows Progress Bar: ${
+                    guild?.premiumProgressBarEnabled
+                  }\nBoosting Tier: ${guild?.premiumTier
+                    .toString()
+                    .replace(matchUnderscore, " ")
+                    .toLowerCase()
+                    .replace(/(^|\s)\S/g, (L: any) =>
+                      L.toUpperCase()
+                    )}\nTotal Boost Count: ${guild?.premiumSubscriptionCount}`,
+                  inline: true,
+                },
+                {
+                  name: "<:icons_linked:875395222962585660> Features",
+                  value: `${feature}`,
+                }
+              )
+              .setThumbnail(client.user.avatarURL({ forceStatic: false })!);
+
+            await interaction.reply({ embeds: [guildEmbed] });
+            await interaction.editReply({ embeds: [guildEmbed] });
+          } catch (error) {
+            await interaction.reply({
+              content: "This guild isn't available",
+              ephemeral: true,
+            });
+            console.error(error);
+          }
+
         case "member":
           const user = interaction.options.getUser("member");
 
@@ -269,7 +276,8 @@ module.exports = {
             const planOverviewData = await planOverviewReq.json();
 
             const serverEmbed = new EmbedBuilder()
-              .setColor(`#6bde36`)
+              // @ts-ignore
+              .setColor(config.embedColor)
               .setTitle(`Information about the Minecraft Server`)
               .setThumbnail(
                 `https://eu.mc-api.net/v3/server/favicon/${config.ip}`
@@ -300,7 +308,10 @@ module.exports = {
                 },
                 {
                   name: "<:icons_globe:859424401971609600> Total Chunks",
-                  value: `${await fetchPlaceholder('8b005697-0c91-42bd-b404-9e065e08fbb8', '%server_total_chunks%')}`,
+                  value: `${await fetchPlaceholder(
+                    "8b005697-0c91-42bd-b404-9e065e08fbb8",
+                    "%server_total_chunks%"
+                  )}`,
                   inline: true,
                 },
                 {
