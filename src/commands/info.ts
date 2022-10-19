@@ -350,7 +350,11 @@ module.exports = {
           try {
             
           } catch (error) {
-            
+            await interaction.reply({
+              content: "This player hasn't joined the server",
+              ephemeral: true,
+            });
+            console.error(error);
           }
         case "mc_user":
       }
