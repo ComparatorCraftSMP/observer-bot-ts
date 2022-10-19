@@ -350,26 +350,26 @@ module.exports = {
           break;
         case "player":
           try {
-            const username = interaction.options.getMember("username");
-            const ign = username.displayName;
+            const username = interaction.options.getString("username");
+            
 
             const options = {
               method: "GET",
             };
 
             const response = await fetch(
-              `https://playerdb.co/api/player/minecraft/${ign}`,
+              `https://playerdb.co/api/player/minecraft/${username}`,
               options
             );
 
-            const info = await response.json();
-            const uuid = await info.data.player.id;
+            const playerInfo = await response.json();
+            const playerUUID = await playerInfo.data.player.id;
 
-            if (["minecraft.api_failure"].includes(info.code)) {
+            if (["minecraft.api_failure"].includes(playerInfo.code)) {
               throw "There was an error";
             }
 
-            const offline = new MessageEmbed()
+            const offline = new EmbedBuilder()
               .setAuthor({ name: "🔴 Offline" })
               .setColor(`${embedColor}`)
               .setTitle(`Minecraft Information about ${ign}`)
