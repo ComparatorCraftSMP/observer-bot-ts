@@ -18,7 +18,7 @@ import { client } from "../..";
 
 import { config } from "../../config";
 import fetchPlaceholder from "../utils/fetchPlaceholder";
-const wait = require('node:timers/promises').setTimeout;
+const wait = require("node:timers/promises").setTimeout;
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -179,7 +179,7 @@ module.exports = {
               .setThumbnail(client.user.avatarURL({ forceStatic: false })!);
 
             await interaction.reply({ embeds: [guildEmbed] });
-            await wait(1)
+            await wait(1);
             await interaction.editReply({ embeds: [guildEmbed] });
           } catch (error) {
             await interaction.reply({
@@ -188,7 +188,7 @@ module.exports = {
             });
             console.error(error);
           }
-
+          break;
         case "member":
           const user = interaction.options.getUser("member");
 
@@ -260,6 +260,7 @@ module.exports = {
             });
             console.error(error);
           }
+          break;
         case "server":
           try {
             const serverReq = await fetch(`${process.env.SERVER}/v1/server`, {
@@ -346,9 +347,9 @@ module.exports = {
             });
             console.error(error);
           }
+          break;
         case "player":
           try {
-            
           } catch (error) {
             await interaction.reply({
               content: "This player hasn't joined the server",
@@ -356,13 +357,10 @@ module.exports = {
             });
             console.error(error);
           }
+          break;
         case "mc_user":
       }
     } catch (error) {
-      await interaction.reply({
-        content: "There was an error",
-        ephemeral: true,
-      });
       console.error(error);
     }
   },
