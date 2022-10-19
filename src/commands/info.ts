@@ -350,6 +350,124 @@ module.exports = {
           break;
         case "player":
           try {
+            const username = interaction.options.getMember("username");
+            const ign = username.displayName;
+
+            const options = {
+              method: "GET",
+            };
+
+            const response = await fetch(
+              `https://playerdb.co/api/player/minecraft/${ign}`,
+              options
+            );
+
+            const info = await response.json();
+            const uuid = await info.data.player.id;
+
+            if (["minecraft.api_failure"].includes(info.code)) {
+              throw "There was an error";
+            }
+
+            const offline = new MessageEmbed()
+              .setAuthor({ name: "🔴 Offline" })
+              .setColor(`${embedColor}`)
+              .setTitle(`Minecraft Information about ${ign}`)
+              .setThumbnail(`https://minotar.net/helm/${ign}/100.png`)
+              .addFields(
+                { name: "Minecraft Username", value: `${ign}`, inline: true },
+                {
+                  name: "Discord Username",
+                  value: `${await fetchPlaceholder(
+                    uuid,
+                    "%discordsrv_user_tag%"
+                  )}`,
+                  inline: true,
+                },
+                {
+                  name: "First Join",
+                  value: `<t:${Math.round(
+                    (await fetchPlaceholder(uuid, "%player_first_played%")) /
+                      1000
+                  )}:F>, or <t:${Math.round(
+                    (await fetchPlaceholder(uuid, "%player_first_played%")) /
+                      1000
+                  )}:R>`,
+                  inline: true,
+                },
+                {
+                  name: "Last Join",
+                  value: `<t:${Math.round(
+                    (await fetchPlaceholder(uuid, "%player_last_join%")) / 1000
+                  )}:F>, or <t:${Math.round(
+                    (await fetchPlaceholder(uuid, "%player_last_join%")) / 1000
+                  )}:R>`,
+                  inline: true,
+                }
+              );
+
+            const online = new MessageEmbed()
+              .setAuthor({ name: "🟢 Online" })
+              .setColor(`${embedColor}`)
+              .setTitle(`Minecraft Information about ${ign}`)
+              .setThumbnail(`https://minotar.net/helm/${ign}/100.png`)
+              .addFields(
+                { name: "Minecraft Username", value: `${ign}`, inline: true },
+                {
+                  name: "Discord Username",
+                  value: `${await fetchPlaceholder(
+                    uuid,
+                    "%discordsrv_user_tag%"
+                  )}`,
+                  inline: true,
+                },
+                {
+                  name: "First Join",
+                  value: `<t:${Math.round(
+                    (await fetchPlaceholder(uuid, "%player_first_played%")) /
+                      1000
+                  )}:F>, or <t:${Math.round(
+                    (await fetchPlaceholder(uuid, "%player_first_played%")) /
+                      1000
+                  )}:R>`,
+                  inline: true,
+                },
+                {
+                  name: "Last Join",
+                  value: `<t:${Math.round(
+                    (await fetchPlaceholder(uuid, "%player_last_join%")) / 1000
+                  )}:F>, or <t:${Math.round(
+                    (await fetchPlaceholder(uuid, "%player_last_join%")) / 1000
+                  )}:R>`,
+                  inline: true,
+                },
+                {
+                  name: "Location",
+                  value: `**X:** ${await fetchPlaceholder(
+                    uuid,
+                    "%player_x%"
+                  )} **Y:** ${await fetchPlaceholder(
+                    uuid,
+                    "%player_y%"
+                  )} **Z:** ${await fetchPlaceholder(
+                    uuid,
+                    "%player_z%"
+                  )} \n **World:** ${await fetchPlaceholder(
+                    uuid,
+                    "%player_world%"
+                  )}`,
+                  inline: true,
+                }
+              );
+
+            const statusOnline = await fetchPlaceholder(
+              uuid,
+              "%player_online%"
+            );
+
+            const replyEmbed = statusOnline === "no" ? offline : online;
+
+            await interaction.reply({ embeds: [replyEmbed] });
           } catch (error) {
             await interaction.reply({
               content: "This player hasn't joined the server",
