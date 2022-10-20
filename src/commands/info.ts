@@ -363,7 +363,7 @@ module.exports = {
             );
 
             const playerInfo = await response.json();
-            const playerUUID = await playerInfo.data.player.id;
+            const playerUUID: string = await playerInfo.data.player.id;
 
             if (["minecraft.api_failure"].includes(playerInfo.code)) {
               throw "There was an error";
@@ -371,15 +371,16 @@ module.exports = {
 
             const offline = new EmbedBuilder()
               .setAuthor({ name: "🔴 Offline" })
-              .setColor(`${embedColor}`)
-              .setTitle(`Minecraft Information about ${ign}`)
-              .setThumbnail(`https://minotar.net/helm/${ign}/100.png`)
+              // @ts-ignore
+              .setColor(config.embedColor)
+              .setTitle(`Minecraft Information about ${username}`)
+              .setThumbnail(`https://minotar.net/helm/${username}/100.png`)
               .addFields(
-                { name: "Minecraft Username", value: `${ign}`, inline: true },
+                { name: "Minecraft Username", value: `${username}`, inline: true },
                 {
                   name: "Discord Username",
                   value: `${await fetchPlaceholder(
-                    uuid,
+                    `${playerUUID}`,
                     "%discordsrv_user_tag%"
                   )}`,
                   inline: true,
@@ -387,10 +388,12 @@ module.exports = {
                 {
                   name: "First Join",
                   value: `<t:${Math.round(
-                    (await fetchPlaceholder(uuid, "%player_first_played%")) /
+                    // @ts-ignore
+                    (await fetchPlaceholder(`${playerUUID}`, "%player_first_played%")) /
                       1000
                   )}:F>, or <t:${Math.round(
-                    (await fetchPlaceholder(uuid, "%player_first_played%")) /
+                    // @ts-ignore
+                    (await fetchPlaceholder(`${playerUUID}`, "%player_first_played%")) /
                       1000
                   )}:R>`,
                   inline: true,
@@ -398,21 +401,24 @@ module.exports = {
                 {
                   name: "Last Join",
                   value: `<t:${Math.round(
-                    (await fetchPlaceholder(uuid, "%player_last_join%")) / 1000
+                    // @ts-ignore
+                    (await fetchPlaceholder(`${playerUUID}`, "%player_last_join%")) / 1000
                   )}:F>, or <t:${Math.round(
-                    (await fetchPlaceholder(uuid, "%player_last_join%")) / 1000
+                    // @ts-ignore
+                    (await fetchPlaceholder(`${playerUUID}`, "%player_last_join%")) / 1000
                   )}:R>`,
                   inline: true,
                 }
               );
 
-            const online = new MessageEmbed()
+            const online = new EmbedBuilder()
               .setAuthor({ name: "🟢 Online" })
-              .setColor(`${embedColor}`)
-              .setTitle(`Minecraft Information about ${ign}`)
-              .setThumbnail(`https://minotar.net/helm/${ign}/100.png`)
+              // @ts-ignore
+              .setColor(config.embedColor)
+              .setTitle(`Minecraft Information about ${username}`)
+              .setThumbnail(`https://minotar.net/helm/${username}/100.png`)
               .addFields(
-                { name: "Minecraft Username", value: `${ign}`, inline: true },
+                { name: "Minecraft Username", value: `${username}`, inline: true },
                 {
                   name: "Discord Username",
                   value: `${await fetchPlaceholder(
@@ -424,10 +430,12 @@ module.exports = {
                 {
                   name: "First Join",
                   value: `<t:${Math.round(
-                    (await fetchPlaceholder(uuid, "%player_first_played%")) /
+                    // @ts-ignore
+                    (await fetchPlaceholder(`${playerUUID}`, "%player_first_played%")) /
                       1000
                   )}:F>, or <t:${Math.round(
-                    (await fetchPlaceholder(uuid, "%player_first_played%")) /
+                    // @ts-ignore
+                    (await fetchPlaceholder(`${playerUUID}`, "%player_first_played%")) /
                       1000
                   )}:R>`,
                   inline: true,
@@ -435,25 +443,27 @@ module.exports = {
                 {
                   name: "Last Join",
                   value: `<t:${Math.round(
-                    (await fetchPlaceholder(uuid, "%player_last_join%")) / 1000
+                    // @ts-ignore
+                    (await fetchPlaceholder(`${playerUUID}`, "%player_last_join%")) / 1000
                   )}:F>, or <t:${Math.round(
-                    (await fetchPlaceholder(uuid, "%player_last_join%")) / 1000
+                    // @ts-ignore
+                    (await fetchPlaceholder(`${playerUUID}`, "%player_last_join%")) / 1000
                   )}:R>`,
                   inline: true,
                 },
                 {
                   name: "Location",
                   value: `**X:** ${await fetchPlaceholder(
-                    uuid,
+                    `${playerUUID}`,
                     "%player_x%"
                   )} **Y:** ${await fetchPlaceholder(
-                    uuid,
+                    `${playerUUID}`,
                     "%player_y%"
                   )} **Z:** ${await fetchPlaceholder(
-                    uuid,
+                    `${playerUUID}`,
                     "%player_z%"
                   )} \n **World:** ${await fetchPlaceholder(
-                    uuid,
+                    `${playerUUID}`,
                     "%player_world%"
                   )}`,
                   inline: true,
@@ -461,7 +471,7 @@ module.exports = {
               );
 
             const statusOnline = await fetchPlaceholder(
-              uuid,
+              `${playerUUID}`,
               "%player_online%"
             );
 
