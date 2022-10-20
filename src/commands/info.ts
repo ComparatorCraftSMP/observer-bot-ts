@@ -349,7 +349,7 @@ module.exports = {
           }
           break;
         case "player":
-          try {
+          
             const username = interaction.options.getString("username");
             
 
@@ -389,11 +389,11 @@ module.exports = {
                   name: "First Join",
                   value: `<t:${Math.round(
                     // @ts-ignore
-                    (await fetchPlaceholder(`${playerUUID}`, "%player_first_played%")) /
+                    (parseInt(await fetchPlaceholder(`${playerUUID}`, "%player_first_played%"))) /
                       1000
                   )}:F>, or <t:${Math.round(
                     // @ts-ignore
-                    (await fetchPlaceholder(`${playerUUID}`, "%player_first_played%")) /
+                    (parseInt(await fetchPlaceholder(`${playerUUID}`, "%player_first_played%"))) /
                       1000
                   )}:R>`,
                   inline: true,
@@ -402,10 +402,10 @@ module.exports = {
                   name: "Last Join",
                   value: `<t:${Math.round(
                     // @ts-ignore
-                    (await fetchPlaceholder(`${playerUUID}`, "%player_last_join%")) / 1000
+                    (parseInt(await fetchPlaceholder(`${playerUUID}`, "%player_last_join%"))) / 1000
                   )}:F>, or <t:${Math.round(
                     // @ts-ignore
-                    (await fetchPlaceholder(`${playerUUID}`, "%player_last_join%")) / 1000
+                    (parseInt(await fetchPlaceholder(`${playerUUID}`, "%player_last_join%"))) / 1000
                   )}:R>`,
                   inline: true,
                 }
@@ -422,7 +422,7 @@ module.exports = {
                 {
                   name: "Discord Username",
                   value: `${await fetchPlaceholder(
-                    uuid,
+                    playerUUID,
                     "%discordsrv_user_tag%"
                   )}`,
                   inline: true,
@@ -431,11 +431,11 @@ module.exports = {
                   name: "First Join",
                   value: `<t:${Math.round(
                     // @ts-ignore
-                    (await fetchPlaceholder(`${playerUUID}`, "%player_first_played%")) /
+                    (parseInt(await fetchPlaceholder(`${playerUUID}`, "%player_first_played%"))) /
                       1000
                   )}:F>, or <t:${Math.round(
                     // @ts-ignore
-                    (await fetchPlaceholder(`${playerUUID}`, "%player_first_played%")) /
+                    (parseInt(await fetchPlaceholder(`${playerUUID}`, "%player_first_played%"))) /
                       1000
                   )}:R>`,
                   inline: true,
@@ -444,10 +444,10 @@ module.exports = {
                   name: "Last Join",
                   value: `<t:${Math.round(
                     // @ts-ignore
-                    (await fetchPlaceholder(`${playerUUID}`, "%player_last_join%")) / 1000
+                    (parseInt(await fetchPlaceholder(`${playerUUID}`, "%player_last_join%"))) / 1000
                   )}:F>, or <t:${Math.round(
                     // @ts-ignore
-                    (await fetchPlaceholder(`${playerUUID}`, "%player_last_join%")) / 1000
+                    (parseInt(await fetchPlaceholder(`${playerUUID}`, "%player_last_join%"))) / 1000
                   )}:R>`,
                   inline: true,
                 },
@@ -476,13 +476,10 @@ module.exports = {
             );
 
             const replyEmbed = statusOnline === "no" ? offline : online;
-
-            await interaction.reply({ embeds: [replyEmbed] });
+            try {
+            await interaction.reply('hi');
           } catch (error) {
-            await interaction.reply({
-              content: "This player hasn't joined the server",
-              ephemeral: true,
-            });
+            
             console.error(error);
           }
           break;
