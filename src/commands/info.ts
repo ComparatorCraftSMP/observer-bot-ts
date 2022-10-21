@@ -477,7 +477,7 @@ module.exports = {
 
             const replyEmbed = statusOnline === "no" ? offline : online;
             try {
-            await interaction.reply('hi');
+            await interaction.reply({embeds: [replyEmbed]});
           } catch (error) {
             
             console.error(error);
