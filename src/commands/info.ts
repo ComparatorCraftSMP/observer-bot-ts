@@ -357,12 +357,12 @@ module.exports = {
               method: "GET",
             };
 
-            const response = await fetch(
+            const playerQuery = await fetch(
               `https://plan.comparatorcraftsmp.net/v1/player?player=${username}`,
               options
             );
 
-            const playerInfo = await response.json();
+            const playerInfo = await playerQuery.json();
             const playerUUID: string = await playerInfo.data.player.id;
 
             if (["minecraft.api_failure"].includes(playerInfo.code)) {
