@@ -379,7 +379,7 @@ module.exports = {
             .addFields(
               {
                 name: "Minecraft Username",
-                value: `${username}`,
+                value: `${playerInfo.info.name}`,
                 inline: true,
               },
               {
