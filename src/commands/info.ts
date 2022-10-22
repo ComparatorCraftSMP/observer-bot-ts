@@ -1,4 +1,5 @@
 import fetch from "cross-fetch";
+import dayjs from "dayjs";
 import {
   Interaction,
   EmbedBuilder,
@@ -392,15 +393,7 @@ module.exports = {
               },
               {
                 name: "First Join",
-                value: `<t:${Math.round(
-                  // @ts-ignore
-                  parseInt(
-                    await fetchPlaceholder(
-                      `${playerUUID}`,
-                      "%player_first_played%"
-                    )
-                  ) / 1000
-                )}:F>, or <t:${Math.round(
+                value: `<t:${dayjs(playerInfo.info.registered, 'MMM D YYYY, HH:mm').unix()}:F>, or <t:${Math.round(
                   // @ts-ignore
                   parseInt(
                     await fetchPlaceholder(
