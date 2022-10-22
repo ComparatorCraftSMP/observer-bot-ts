@@ -368,8 +368,10 @@ module.exports = {
 
           const playerUUID: string = playerInfo.info.uuid;
 
+          const statusOnline: boolean = await playerInfo.info.online
+
           const online = new EmbedBuilder()
-            .setAuthor({ name: "🟢 Online" })
+            .setAuthor({ name: `${}` })
             // @ts-ignore
             .setColor(config.embedColor)
             .setTitle(`Minecraft Information about ${username}`)
@@ -449,7 +451,7 @@ module.exports = {
               }
             );
 
-          const statusOnline: boolean = await playerInfo.info.online
+          
 
           const replyEmbed = statusOnline === false ? offline : online;
           try {
