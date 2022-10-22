@@ -451,11 +451,8 @@ module.exports = {
               }
             );
 
-          
-
-          const replyEmbed = statusOnline === false ? offline : online;
           try {
-            await interaction.reply({ embeds: [replyEmbed] });
+            await interaction.reply({ embeds: [playerEmbed] });
           } catch (error) {
             await interaction.reply("This player hasnt joined the mc server");
             console.error(error);
