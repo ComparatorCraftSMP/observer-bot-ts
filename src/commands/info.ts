@@ -363,7 +363,7 @@ module.exports = {
             );
 
             const playerInfo = await playerQuery.json();
-            const playerUUID: string = await playerInfo.data.player.id;
+            const playerUUID: string = await playerInfo.info.uuid;
 
             if (playerInfo.error) {
               throw "This player isn't in our database";
