@@ -358,7 +358,7 @@ module.exports = {
             };
 
             const response = await fetch(
-              `https://playerdb.co/api/player/minecraft/${username}`,
+              `https://plan.comparatorcraftsmp.net/v1/player?player=${username}`,
               options
             );
 
