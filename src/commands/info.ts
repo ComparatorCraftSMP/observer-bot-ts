@@ -370,7 +370,7 @@ module.exports = {
 
           const statusOnline: boolean = await playerInfo.info.online
 
-          const online = new EmbedBuilder()
+          const playerEmbed = new EmbedBuilder()
             .setAuthor({ name: `${}` })
             // @ts-ignore
             .setColor(config.embedColor)
