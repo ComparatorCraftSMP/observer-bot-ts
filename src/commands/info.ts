@@ -365,8 +365,8 @@ module.exports = {
             const playerInfo = await playerQuery.json();
             const playerUUID: string = await playerInfo.data.player.id;
 
-            if (["minecraft.api_failure"].includes(playerInfo.code)) {
-              throw "There was an error";
+            if (playerInfo.error) {
+              throw "This player isn't in our database";
             }
 
             const offline = new EmbedBuilder()
@@ -479,7 +479,7 @@ module.exports = {
             try {
             await interaction.reply({embeds: [replyEmbed]});
           } catch (error) {
-            
+            await interaction.reply('This player hasnt joined the mc server')
             console.error(error);
           }
           break;
