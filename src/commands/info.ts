@@ -371,7 +371,7 @@ module.exports = {
           const statusOnline: boolean = await playerInfo.info.online
 
           const playerEmbed = new EmbedBuilder()
-            .setAuthor({ name: `${}` })
+            .setAuthor({ name: `${statusOnline === false ? "🔴 Offline" : "🟢 Online"}` })
             // @ts-ignore
             .setColor(config.embedColor)
             .setTitle(`Minecraft Information about ${username}`)
