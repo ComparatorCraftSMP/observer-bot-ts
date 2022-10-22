@@ -513,12 +513,9 @@ module.exports = {
               }
             );
 
-          const statusOnline = await fetchPlaceholder(
-            `${playerUUID}`,
-            "%player_online%"
-          );
+          const statusOnline: boolean = await playerInfo.info.online
 
-          const replyEmbed = statusOnline === "no" ? offline : online;
+          const replyEmbed = statusOnline === false ? offline : online;
           try {
             await interaction.reply({ embeds: [replyEmbed] });
           } catch (error) {
