@@ -15,6 +15,7 @@ import {
   MessageActionRowComponentBuilder,
   ChatInputCommandInteraction,
 } from "discord.js";
+import moment from "moment";
 import { client } from "../..";
 
 import { config } from "../../config";
@@ -393,15 +394,7 @@ module.exports = {
               },
               {
                 name: "First Join",
-                value: `<t:${dayjs(playerInfo.info.registered, 'MMM D YYYY, HH:mm').unix()}:F>, or <t:${Math.round(
-                  // @ts-ignore
-                  parseInt(
-                    await fetchPlaceholder(
-                      `${playerUUID}`,
-                      "%player_first_played%"
-                    )
-                  ) / 1000
-                )}:R>`,
+                value: `<t:${moment(playerInfo.info.registered, ['MMM D YYYY, HH:mm', 'dddd, HH:mm', 'Today, HH:mm']).unix()}:F>, or <t:${dayjs(playerInfo.info.registered, 'MMM D YYYY, HH:mm').unix()}:R>`,
                 inline: true,
               },
               {
@@ -426,20 +419,8 @@ module.exports = {
                 inline: true,
               },
               {
-                name: "Location",
-                value: `**X:** ${await fetchPlaceholder(
-                  `${playerUUID}`,
-                  "%player_x%"
-                )} **Y:** ${await fetchPlaceholder(
-                  `${playerUUID}`,
-                  "%player_y%"
-                )} **Z:** ${await fetchPlaceholder(
-                  `${playerUUID}`,
-                  "%player_z%"
-                )} \n **World:** ${await fetchPlaceholder(
-                  `${playerUUID}`,
-                  "%player_world%"
-                )}`,
+                name: "PlayTime",
+                value: `**Total Playtime**: ${playerInfo.info.playtime}\n**Active Playtime**: ${playerInfo.info.active_playtime}\n **AFK Time**: ${playerInfo.info.afk_time}`,
                 inline: true,
               }
             );
