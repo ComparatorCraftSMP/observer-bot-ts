@@ -385,6 +385,9 @@ module.exports = {
                 inline: true,
               },
               {
+
+              },
+              {
                 name: "Discord Username",
                 value: `${await fetchPlaceholder(
                   playerUUID,
@@ -399,7 +402,7 @@ module.exports = {
               },
               {
                 name: "Last Join",
-                value: `<t:${moment(playerInfo.info.last_seen, ['MMM DD YYYY, HH:mm', 'dddd, HH:mm', 'HH:mm']).unix()}:R>`,
+                value: `<t:${moment(playerInfo.info.last_seen, ['MMM DD YYYY, HH:mm', 'dddd, HH:mm', 'HH:mm']).unix()}:F> or <t:${moment(playerInfo.info.last_seen, ['MMM DD YYYY, HH:mm', 'dddd, HH:mm', 'HH:mm']).unix()}:R>`,
                 inline: true,
               },
               {
