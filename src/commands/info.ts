@@ -112,7 +112,7 @@ module.exports = {
               .setTitle(`Information about ${guild?.name}`)
               .addFields(
                 {
-                  name: "<:icons_shine1:859424400959602718> Owner",
+                  name: "<:Icons_rowner:888881202352754688> Owner",
                   value: `<@${guild?.ownerId}>`,
                   inline: true,
                 },
