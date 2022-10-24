@@ -385,7 +385,9 @@ module.exports = {
                 inline: true,
               },
               {
-
+                name: "Minecraft UUID",
+                value: `${playerInfo.info.uuid}`,
+                inline: true
               },
               {
                 name: "Discord Username",
@@ -409,6 +411,16 @@ module.exports = {
                 name: "PlayTime",
                 value: `**Total Playtime**: ${playerInfo.info.playtime}\n**Active Playtime**: ${playerInfo.info.active_playtime}\n **AFK Time**: ${playerInfo.info.afk_time}`,
                 inline: true,
+              },
+              {
+                name: "Minecraft UUID",
+                value: `${playerInfo.info.uuid}`,
+                inline: true
+              },
+              {
+                name: "Minecraft UUID",
+                value: `${playerInfo.info.uuid}`,
+                inline: true
               }
             );
 
