@@ -413,14 +413,18 @@ module.exports = {
                 inline: true,
               },
               {
-                name: "Minecraft UUID",
-                value: `${playerInfo.info.uuid}`,
+                name: "Ping",
+                value: `**Best Ping**: ${playerInfo.info.best_ping}\n **Average Ping**: ${playerInfo.info.average_ping} \n **Worst Ping**: ${playerInfo.info.worst_ping}`,
                 inline: true
               },
               {
-                name: "Minecraft UUID",
-                value: `${playerInfo.info.uuid}`,
+                name: "Sessions",
+                value: `**Total Session Count**: ${playerInfo.info.session_count}\n **Longest Session**: ${playerInfo.info.longest_session_length} \n **Average Session Length**: ${playerInfo.info.session_median}`,
                 inline: true
+              },
+              {
+                name: `More Info About ${playerInfo.info.name}`,
+                value: `${config.plan.url}/player/${playerInfo.info.name}`
               }
             );
 
