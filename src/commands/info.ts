@@ -380,17 +380,17 @@ module.exports = {
             .setThumbnail(`https://minotar.net/helm/${username}/100.png`)
             .addFields(
               {
-                name: "Minecraft Username",
+                name: "<:icons_games:860123644402335775> Minecraft Username",
                 value: `${playerInfo.info.name}`,
                 inline: true,
               },
               {
-                name: "Minecraft UUID",
+                name: "<:icons_fingerprint:867656826899136553> Minecraft UUID",
                 value: `${playerInfo.info.uuid}`,
                 inline: true
               },
               {
-                name: "Discord Username",
+                name: "<:icons_Discord:866329296020701218> Discord Username",
                 value: `${await fetchPlaceholder(
                   playerUUID,
                   "%discordsrv_user_tag%"
@@ -398,38 +398,39 @@ module.exports = {
                 inline: true,
               },
               {
-                name: "First Join",
+                name: "<:icons_award:869513411103424563> First Join",
                 value: `<t:${moment(playerInfo.info.registered, ['MMM DD YYYY, HH:mm', 'dddd, HH:mm', 'HH:mm']).unix()}:F>, or <t:${moment(playerInfo.info.registered, ['MMM DD YYYY, HH:mm', 'dddd, HH:mm', 'HH:mm']).unix()}:R>`,
                 inline: true,
               },
               {
-                name: "Last Join",
+                name: "<:icons_calendar1:941679946760351794> Last Join",
                 value: `<t:${moment(playerInfo.info.last_seen, ['MMM DD YYYY, HH:mm', 'dddd, HH:mm', 'HH:mm']).unix()}:F> or <t:${moment(playerInfo.info.last_seen, ['MMM DD YYYY, HH:mm', 'dddd, HH:mm', 'HH:mm']).unix()}:R>`,
                 inline: true,
               },
               {
-                name: "PlayTime",
+                name: "<:icons_clock:964491800465276940> PlayTime",
                 value: `**Total Playtime**: ${playerInfo.info.playtime}\n**Active Playtime**: ${playerInfo.info.active_playtime}\n **AFK Time**: ${playerInfo.info.afk_time}`,
                 inline: true,
               },
               {
-                name: "Ping",
+                name: "<:icons_goodping:880113406915538995> Ping",
                 value: `**Best Ping**: ${playerInfo.info.best_ping}\n **Average Ping**: ${playerInfo.info.average_ping} \n **Worst Ping**: ${playerInfo.info.worst_ping}`,
                 inline: true
               },
               {
-                name: "Sessions",
+                name: "<:icons_reminder:859388128364199946> Sessions",
                 value: `**Total Session Count**: ${playerInfo.info.session_count}\n **Longest Session**: ${playerInfo.info.longest_session_length} \n **Average Session Length**: ${playerInfo.info.session_median}`,
                 inline: true
               },
               {
-                name: `More Info About ${playerInfo.info.name}`,
+                name: `<:icons_globe:859424401971609600> More Info About ${playerInfo.info.name}`,
                 value: `${config.plan.url}/player/${playerInfo.info.name}`
               }
             );
 
           try {
             await interaction.reply({ embeds: [playerEmbed] });
+            await interaction.editReply({ embeds: [playerEmbed] });
           } catch (error) {
             await interaction.reply("This player hasnt joined the mc server");
             console.error(error);
