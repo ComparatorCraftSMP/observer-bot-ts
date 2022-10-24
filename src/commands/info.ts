@@ -394,28 +394,12 @@ module.exports = {
               },
               {
                 name: "First Join",
-                value: `<t:${moment(playerInfo.info.registered, ['MMM D YYYY, HH:mm', 'dddd, HH:mm', 'Today, HH:mm']).unix()}:F>, or <t:${dayjs(playerInfo.info.registered, 'MMM D YYYY, HH:mm').unix()}:R>`,
+                value: `<t:${moment(playerInfo.info.registered, ['MMM DD YYYY, HH:mm', 'dddd, HH:mm', 'HH:mm']).unix()}:F>, or <t:${moment(playerInfo.info.registered, ['MMM DD YYYY, HH:mm', 'dddd, HH:mm', 'HH:mm']).unix()}:R>`,
                 inline: true,
               },
               {
                 name: "Last Join",
-                value: `<t:${Math.round(
-                  // @ts-ignore
-                  parseInt(
-                    await fetchPlaceholder(
-                      `${playerUUID}`,
-                      "%player_last_join%"
-                    )
-                  ) / 1000
-                )}:F>, or <t:${Math.round(
-                  // @ts-ignore
-                  parseInt(
-                    await fetchPlaceholder(
-                      `${playerUUID}`,
-                      "%player_last_join%"
-                    )
-                  ) / 1000
-                )}:R>`,
+                value: `<t:${moment(playerInfo.info.last_seen, ['MMM DD YYYY, HH:mm', 'dddd, HH:mm', 'HH:mm']).unix()}:R>`,
                 inline: true,
               },
               {
