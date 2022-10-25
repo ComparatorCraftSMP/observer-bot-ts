@@ -364,17 +364,21 @@ module.exports = {
           );
 
           const playerInfo = await playerQuery.json();
-          
+
           if (playerInfo.error) {
-            await interaction.reply("This player hasn't joined the Minecraft server")
+            await interaction.reply(
+              "This player hasn't joined the Minecraft server"
+            );
           }
 
           const playerUUID: string = playerInfo.info.uuid;
 
-          const statusOnline: boolean = await playerInfo.info.online
+          const statusOnline: boolean = await playerInfo.info.online;
 
           const playerEmbed = new EmbedBuilder()
-            .setAuthor({ name: `${statusOnline === false ? "🔴 Offline" : "🟢 Online"}` })
+            .setAuthor({
+              name: `${statusOnline === false ? "🔴 Offline" : "🟢 Online"}`,
+            })
             // @ts-ignore
             .setColor(config.embedColor)
             .setTitle(`Minecraft Information about ${username}`)
@@ -388,7 +392,7 @@ module.exports = {
               {
                 name: "<:icons_fingerprint:867656826899136553> Minecraft UUID",
                 value: `${playerInfo.info.uuid}`,
-                inline: true
+                inline: true,
               },
               {
                 name: "<:icons_Discord:866329296020701218> Discord Username",
@@ -400,12 +404,28 @@ module.exports = {
               },
               {
                 name: "<:icons_award:869513411103424563> First Join",
-                value: `<t:${moment(playerInfo.info.registered, ['MMM DD YYYY, HH:mm', 'dddd, HH:mm', 'HH:mm']).unix()}:F>, or <t:${moment(playerInfo.info.registered, ['MMM DD YYYY, HH:mm', 'dddd, HH:mm', 'HH:mm']).unix()}:R>`,
+                value: `<t:${moment(playerInfo.info.registered, [
+                  "MMM DD YYYY, HH:mm",
+                  "dddd, HH:mm",
+                  "HH:mm",
+                ]).unix()}:F>, or <t:${moment(playerInfo.info.registered, [
+                  "MMM DD YYYY, HH:mm",
+                  "dddd, HH:mm",
+                  "HH:mm",
+                ]).unix()}:R>`,
                 inline: true,
               },
               {
                 name: "<:icons_calendar1:941679946760351794> Last Join",
-                value: `<t:${moment(playerInfo.info.last_seen, ['MMM DD YYYY, HH:mm', 'dddd, HH:mm', 'HH:mm']).unix()}:F> or <t:${moment(playerInfo.info.last_seen, ['MMM DD YYYY, HH:mm', 'dddd, HH:mm', 'HH:mm']).unix()}:R>`,
+                value: `<t:${moment(playerInfo.info.last_seen, [
+                  "MMM DD YYYY, HH:mm",
+                  "dddd, HH:mm",
+                  "HH:mm",
+                ]).unix()}:F> or <t:${moment(playerInfo.info.last_seen, [
+                  "MMM DD YYYY, HH:mm",
+                  "dddd, HH:mm",
+                  "HH:mm",
+                ]).unix()}:R>`,
                 inline: true,
               },
               {
@@ -416,16 +436,16 @@ module.exports = {
               {
                 name: "<:icons_goodping:880113406915538995> Ping",
                 value: `**Best Ping**: ${playerInfo.info.best_ping}\n **Average Ping**: ${playerInfo.info.average_ping} \n **Worst Ping**: ${playerInfo.info.worst_ping}`,
-                inline: true
+                inline: true,
               },
               {
                 name: "<:icons_reminder:859388128364199946> Sessions",
                 value: `**Total Session Count**: ${playerInfo.info.session_count}\n **Longest Session**: ${playerInfo.info.longest_session_length} \n **Average Session Length**: ${playerInfo.info.session_median}`,
-                inline: true
+                inline: true,
               },
               {
                 name: `<:icons_globe:859424401971609600> More Info About ${playerInfo.info.name}`,
-                value: `${config.plan.url}/player/${playerInfo.info.name}`
+                value: `${config.plan.url}/player/${playerInfo.info.name}`,
               }
             );
 
@@ -440,7 +460,50 @@ module.exports = {
         case "mc_user":
           const mc_username = interaction.options.getString("username");
 
-          const nameMC = new NameMC()
+          const nameMC = new NameMC();
+
+          const mc_player = await nameMC.getPlayer(mc_username!);
+
+          const mcUserEmbed = new EmbedBuilder()
+            .setColor(`#6bde36`)
+            .setTitle(`Title Here`)
+            .setThumbnail(interaction.user?.avatarURL({ forceStatic: false })!)
+            .setURL("https://analog-ts.bossdaily.me/")
+            .setAuthor({
+              name: "Some name",
+              iconURL:
+                "https://avatars.githubusercontent.com/u/110413696?s=200&v=4",
+              url: "https://analog-ts.bossdaily.me/",
+            })
+            .setDescription("Some description here")
+            .addFields(
+              { name: "Regular field title", value: "Some value here" },
+              { name: "\u200B", value: "\u200B" },
+              {
+                name: "Inline field title",
+                value: "Some value here",
+                inline: true,
+              },
+              {
+                name: "Inline field title",
+                value: "Some value here",
+                inline: true,
+              }
+            )
+            .addFields({
+              name: "Inline field title",
+              value: "Some value here",
+              inline: true,
+            })
+            .setImage(
+              "https://avatars.githubusercontent.com/u/110413696?s=200&v=4"
+            )
+            .setTimestamp()
+            .setFooter({
+              text: "Some footer text here",
+              iconURL:
+                "https://avatars.githubusercontent.com/u/110413696?s=200&v=4",
+            });
       }
     } catch (error) {
       console.error(error);
