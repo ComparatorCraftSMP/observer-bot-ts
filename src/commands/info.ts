@@ -477,12 +477,12 @@ module.exports = {
             .setThumbnail(`https://minotar.net/helm/${mc_username}/100.png`)
             .addFields(
               {
-                name: "Minecraft Username",
+                name: "<:icons_games:860123644402335775> Minecraft Username",
                 value: `${mc_username}`,
                 inline: true,
               },
               {
-                name: "Minecraft UUID",
+                name: "<:icons_fingerprint:867656826899136553> Minecraft UUID",
                 value: `${mc_player.data.player.id}`,
                 inline: true,
               }
