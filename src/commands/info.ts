@@ -1,5 +1,5 @@
 import fetch from "cross-fetch";
-import dayjs from "dayjs";
+
 import {
   Interaction,
   EmbedBuilder,
