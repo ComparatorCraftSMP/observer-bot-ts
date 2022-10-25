@@ -495,15 +495,13 @@ module.exports = {
               value: "Some value here",
               inline: true,
             })
-            .setImage(
-              "https://avatars.githubusercontent.com/u/110413696?s=200&v=4"
-            )
-            .setTimestamp()
-            .setFooter({
-              text: "Some footer text here",
-              iconURL:
-                "https://avatars.githubusercontent.com/u/110413696?s=200&v=4",
-            });
+            
+          try {
+            await interaction.reply({ embeds: [mcUserEmbed] });
+          } catch (error) {
+            await interaction.reply("This player doesnt exist");
+            console.error(error);
+          }
       }
     } catch (error) {
       console.error(error);
