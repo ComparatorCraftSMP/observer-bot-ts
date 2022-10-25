@@ -465,7 +465,7 @@ module.exports = {
           const mc_player = await nameMC.getPlayer(mc_username!);
 
           const mcUserEmbed = new EmbedBuilder()
-            .setColor(`#6bde36`)
+            .setColor(config.embedColor)
             .setTitle(`Title Here`)
             .setThumbnail(interaction.user?.avatarURL({ forceStatic: false })!)
             .setURL("https://analog-ts.bossdaily.me/")
