@@ -16,6 +16,7 @@ import {
   ChatInputCommandInteraction,
 } from "discord.js";
 import moment from "moment";
+import { NameMC } from "namemcwrapper";
 import { client } from "../..";
 
 import { config } from "../../config";
@@ -437,6 +438,9 @@ module.exports = {
           }
           break;
         case "mc_user":
+          const mc_username = interaction.options.getString("username");
+
+          const nameMC = new NameMC()
       }
     } catch (error) {
       console.error(error);
