@@ -16,7 +16,6 @@ import {
   ChatInputCommandInteraction,
 } from "discord.js";
 import moment from "moment";
-import { NameMC } from "namemcwrapper";
 import { client } from "../..";
 
 import { config } from "../../config";
@@ -381,7 +380,7 @@ module.exports = {
             })
             // @ts-ignore
             .setColor(config.embedColor)
-            .setTitle(`Minecraft Information about ${username}`)
+            .setTitle(`Minecraft Information about ${username} on ${interaction.guild?.name}`)
             .setThumbnail(`https://minotar.net/helm/${username}/100.png`)
             .addFields(
               {
@@ -460,41 +459,34 @@ module.exports = {
         case "mc_user":
           const mc_username = interaction.options.getString("username");
 
-          const nameMC = new NameMC();
+          const mcOptions = {
+            method: "GET",
+          };
 
-          const mc_player = await nameMC.getPlayer(mc_username!);
+          const mcQuery = await fetch(
+            `https://playerdb.co/api/player/minecraft/${mc_username}`,
+            mcOptions
+          );
+
+          const mc_player = await mcQuery.json()
 
           const mcUserEmbed = new EmbedBuilder()
+          // @ts-ignore
             .setColor(config.embedColor)
-            .setTitle(`Title Here`)
-            .setThumbnail(interaction.user?.avatarURL({ forceStatic: false })!)
-            .setURL("https://analog-ts.bossdaily.me/")
-            .setAuthor({
-              name: "Some name",
-              iconURL:
-                "https://avatars.githubusercontent.com/u/110413696?s=200&v=4",
-              url: "https://analog-ts.bossdaily.me/",
-            })
-            .setDescription("Some description here")
+            .setTitle(`Minecraft information about ${mc_player.data.player.username}`)
+            .setThumbnail(`https://minotar.net/helm/${mc_username}/100.png`)
             .addFields(
-              { name: "Regular field title", value: "Some value here" },
-              { name: "\u200B", value: "\u200B" },
               {
-                name: "Inline field title",
-                value: "Some value here",
+                name: "Minecraft Username",
+                value: `${mc_username}`,
                 inline: true,
               },
               {
-                name: "Inline field title",
-                value: "Some value here",
+                name: "Minecraft UUID",
+                value: `${mc_player.data.player.id}`,
                 inline: true,
               }
             )
-            .addFields({
-              name: "Inline field title",
-              value: "Some value here",
-              inline: true,
-            })
             
           try {
             await interaction.reply({ embeds: [mcUserEmbed] });
