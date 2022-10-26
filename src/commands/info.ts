@@ -490,6 +490,7 @@ module.exports = {
             
           try {
             await interaction.reply({ embeds: [mcUserEmbed] });
+            await interaction.editReply({ embeds: [mcUserEmbed] });
           } catch (error) {
             await interaction.reply("This player doesnt exist");
             console.error(error);
