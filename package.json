@@ -8,8 +8,8 @@
     "watch": "tsc -w",
     "start": "tsc && node dist/index.js",
     "build": "tsc",
-    "reg-cmds": "node dist/src/deploy-commands.js",
-    "delete-cmds": "node dist/src/delete-commands.js",
+    "reg-cmds": "tsc && node dist/src/deploy-commands.js",
+    "delete-cmds": "tsc && node dist/src/delete-commands.js",
     "dev": "tsc && nodemon dist/index.js"
   },
   "author": "",

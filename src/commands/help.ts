@@ -14,6 +14,8 @@ import {
   ApplicationCommandOption,
 } from "discord.js";
 
+import { config } from "../../config";
+
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("help")
@@ -53,7 +55,8 @@ module.exports = {
         );
 
       const embed = new EmbedBuilder()
-        .setColor(`#6bde36`)
+      // @ts-ignore
+        .setColor(config.embedColor)
         .setTitle(`${client.user?.username}'s commands`)
         .setDescription(`${commandsList}`)
         .setThumbnail(client.user?.avatarURL({ forceStatic: false })!);
