@@ -24,8 +24,8 @@ import { client } from "../../index";
 
 module.exports = {
   data: new ContextMenuCommandBuilder()
-    .setName("acceptApplication")
-    .setType(ApplicationCommandType.User),
+    .setName("Accept Application")
+    .setType(ApplicationCommandType.Message),
 
   async execute(interaction: ContextMenuCommandInteraction) {
     try {
