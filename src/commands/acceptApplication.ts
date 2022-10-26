@@ -20,7 +20,7 @@ import {
   MessageContextMenuCommandInteraction,
   ChannelType,
 } from "discord.js";
-
+import { config } from "../../config";
 import { client } from "../../index";
 
 module.exports = {
@@ -30,28 +30,30 @@ module.exports = {
 
   async execute(interaction: MessageContextMenuCommandInteraction) {
     const msg = interaction.targetMessage;
-    const cmdUser = interaction.member;
+    const guild = interaction.guild
+    const cmdUser = await guild?.members.fetch(`${interaction?.member?.user.id}`);
     const applicant = interaction.targetMessage.member;
 
     try {
       if (msg.channel.type !== ChannelType.DM) {
-        if (msg.channel.parentId === application.ticket_category) {
+        if (msg.channel.parentId === config.application.ticket_category) {
           if (
-            cmdUser.roles.cache.find(
-              (role) => role.id === application.staff_role
-            ) ||
-            cmdUser.permissions.has("MANAGE_ROLES")
+            cmdUser?.roles.cache.find(
+              (role) => role.id === config.application.staff_role
+            ) 
+            || 
+            cmdUser?.permissions.has("ManageRoles")
           ) {
-            if (applicant.user.bot) {
+            if (applicant?.user.bot) {
               await interaction.reply({
                 content:
                   "This is a bot, please run this command on the application not a bot message",
                 ephemeral: true,
               });
             }
-            applicant.roles.add(application.member_role);
-            applicant.roles.remove(application.applicant_role);
-            await msg.reply({ content: `${application.message}` });
+            applicant?.roles.add(config.application.ticket_category);
+            applicant?.roles.remove(config.application.ticket_category);
+            await msg.reply({ content: `${config.application.message}` });
             await interaction.reply({
               content: "Message sent",
               ephemeral: true,
@@ -68,6 +70,11 @@ module.exports = {
             ephemeral: true,
           });
         }
+      } else {
+        await interaction.reply({
+          content: "This isn't an application (don't try that in my DMs)",
+          ephemeral: true,
+        });
       }
     } catch (error) {
       await interaction.reply({
