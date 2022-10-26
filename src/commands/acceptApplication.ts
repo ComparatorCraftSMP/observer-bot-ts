@@ -17,6 +17,7 @@ import {
   ContextMenuCommandInteraction,
   ContextMenuCommandBuilder,
   ApplicationCommandType,
+  MessageContextMenuCommandInteraction,
 } from "discord.js";
 
 import { client } from "../../index";
@@ -27,11 +28,12 @@ module.exports = {
     .setName("Accept Application")
     .setType(ApplicationCommandType.Message),
 
-  async execute(interaction: ContextMenuCommandInteraction) {
-    try {
-      const msg = await interaction.targetMessage;
-    const cmdUser = await interaction.member;
-    const applicant = await interaction.targetMessage.member;
+  async execute(interaction: MessageContextMenuCommandInteraction) {
+    
+    const msg =  interaction.targetMessage;
+    const cmdUser =  interaction.member;
+    const applicant =  interaction.targetMessage.member;
+    
     try {
       if (msg.channel.parentId === application.ticket_category) {
         if (
