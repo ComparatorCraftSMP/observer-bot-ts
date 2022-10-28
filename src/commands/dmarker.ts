@@ -62,6 +62,17 @@ module.exports = {
             .setDescription("z coordinate of the dynmap marker")
             .setRequired(true)
         )
+        .addStringOption((option) =>
+          option
+            .setName("dimension")
+            .setDescription("Dimension the dynmap marker will be in")
+            .setRequired(true)
+        )
+    )
+    .addSubcommand((subcommand) =>
+      subcommand
+        .setName("delete")
+        .setDescription("Deletes a dynmap marker off the map")
     ),
 
   async execute(interaction: ChatInputCommandInteraction) {
