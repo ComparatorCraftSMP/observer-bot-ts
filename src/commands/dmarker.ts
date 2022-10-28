@@ -73,6 +73,12 @@ module.exports = {
       subcommand
         .setName("delete")
         .setDescription("Deletes a dynmap marker off the map")
+        .addStringOption((option) =>
+          option
+            .setName("label")
+            .setDescription("Put the dynmap marker's label or id here")
+            .setRequired(true)
+        )
     ),
 
   async execute(interaction: ChatInputCommandInteraction) {
