@@ -79,13 +79,25 @@ module.exports = {
             .setDescription("Put the dynmap marker's label or id here")
             .setRequired(true)
         )
+    )
+    .addSubcommand((subcommand) =>
+      subcommand
+        .setName("list_categories")
+        .setDescription("This shows a list of all dynmap marker categories")
     ),
 
   async execute(interaction: ChatInputCommandInteraction) {
-    const exampleName = interaction.options.getString("exampleName");
+    
 
     try {
-      await interaction.reply(`exampleName`);
+      switch (key) {
+        case value:
+          
+          break;
+      
+        default:
+          break;
+      }
     } catch (error) {
       await interaction.reply({
         content: "command failed to send",
