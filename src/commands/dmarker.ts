@@ -33,18 +33,6 @@ module.exports = {
             .setDescription("Name of the dynmap marker")
             .setRequired(true)
         )
-        .addStringOption((option) =>
-          option
-            .setName("category")
-            .setDescription("Category of the dynmap marker")
-            .setRequired(false)
-        )
-        .addStringOption((option) =>
-          option
-            .setName("icon")
-            .setDescription("The icon the dynmap marker will use")
-            .setRequired(false)
-        )
         .addIntegerOption((option) =>
           option
             .setName("x")
@@ -68,6 +56,18 @@ module.exports = {
             .setName("dimension")
             .setDescription("Dimension the dynmap marker will be in")
             .setRequired(true)
+        )
+        .addStringOption((option) =>
+          option
+            .setName("category")
+            .setDescription("Category of the dynmap marker")
+            .setRequired(false)
+        )
+        .addStringOption((option) =>
+          option
+            .setName("icon")
+            .setDescription("The icon the dynmap marker will use")
+            .setRequired(false)
         )
     )
     .addSubcommand((subcommand) =>
@@ -105,9 +105,11 @@ module.exports = {
           try {
             if (
               cmdUser?.permissions.has(
+                // @ts-ignore
                 config.dynmap.cmdPerms.addMarker.permissions
               ) ||
               cmdUser?.roles.cache.hasAny(
+                // @ts-ignore
                 config.dynmap.cmdPerms.addMarker.role_ids
               )
             ) {
