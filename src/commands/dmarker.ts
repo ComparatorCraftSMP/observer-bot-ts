@@ -15,6 +15,7 @@ import {
   ModalActionRowComponentBuilder,
   ChatInputCommandInteraction,
 } from "discord.js";
+import { config } from "../../config";
 
 import { client } from "../../index";
 
@@ -87,15 +88,58 @@ module.exports = {
     ),
 
   async execute(interaction: ChatInputCommandInteraction) {
-    
-
     try {
-      switch (key) {
-        case value:
-          
+      switch (interaction.options.getSubcommand()) {
+        case "add":
+          try {
+            const options = {
+              body: `command=dmarker%20add%20set%3A${interaction.options.getString(
+                "category"
+              )}%20label%3A%22${interaction.options.getString(
+                "name"
+              )}%22%20x%3A${interaction.options.getInteger(
+                "x"
+              )}%20y%3A${interaction.options.getInteger(
+                "y"
+              )}%20z%3A${interaction.options.getInteger(
+                "z"
+              )}%20icon%3A${interaction.options.getString(
+                "icon"
+              )}%20world%3A${interaction.options.getString("dimension")}`,
+              method: "POST",
+              headers: {
+                accept: "*/*",
+                key: `${process.env.API}`,
+                "Content-Type": "application/x-www-form-urlencoded",
+              },
+            };
+
+            const response = await fetch(
+              `${process.env.SERVER}/v1/server/exec`,
+              options
+            );
+            //const data = await response.json()
+
+            const embed = new EmbedBuilder()
+            // @ts-ignore
+              .setColor(config.embedColor)
+              .setTitle(`Added dynmap marker`)
+              .setDescription(
+                `View your marker here: https://map.comparatorcraftsmp.net/#${interaction.options.getString(
+                  "dimension"
+                )};flat;${interaction.options.getInteger(
+                  "x"
+                )},64,${interaction.options.getInteger("z")};7`
+              );
+
+            await interaction.reply({ embeds: [embed] });
+          } catch (error) {
+            console.error(error);
+          }
           break;
-      
-        default:
+        case "delete":
+          break;
+        case "list_categories":
           break;
       }
     } catch (error) {
