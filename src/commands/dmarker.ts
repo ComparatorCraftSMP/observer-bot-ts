@@ -91,8 +91,15 @@ module.exports = {
     try {
       switch (interaction.options.getSubcommand()) {
         case "add":
+          const name = interaction.options.getString("name");
+          const category = interaction.options.getString("category");
+          const icon = interaction.options.getString("icon");
+          const x = interaction.options.getInteger("x");
+          const y = interaction.options.getInteger("y");
+          const z = interaction.options.getInteger("z");
+          const dimension = interaction.options.getString("dimension");
           try {
-            const options = {
+            const addOptions = {
               body: `command=dmarker%20add%20set%3A${interaction.options.getString(
                 "category"
               )}%20label%3A%22${interaction.options.getString(
@@ -114,9 +121,9 @@ module.exports = {
               },
             };
 
-            const response = await fetch(
+            const addDmarker = await fetch(
               `${process.env.SERVER}/v1/server/exec`,
-              options
+              addOptions
             );
             //const data = await response.json()
 
