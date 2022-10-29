@@ -43,8 +43,8 @@ export const config = {
     cmdPerms: {
       // use role ids 
       // list of permissions you can use are found here: https://discord-api-types.dev/api/discord-api-types-payloads/common#PermissionFlagsBits 
-      addMarker: { roles: [], permissions: [] },
-      deleteMarker: { roles: [], permissions: [] },
+      addMarker: { role_ids: [], permissions: [] },
+      deleteMarker: { role_ids: [], permissions: [] },
     },
   },
   ip: "",
