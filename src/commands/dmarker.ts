@@ -89,6 +89,8 @@ module.exports = {
 
   async execute(interaction: ChatInputCommandInteraction) {
     try {
+      const guild = interaction.guild
+      const cmdUser = await guild?.members.fetch(`${interaction?.member?.user.id}`)
       switch (interaction.options.getSubcommand()) {
         case "add":
           const name = interaction.options.getString("name");
@@ -99,6 +101,7 @@ module.exports = {
           const z = interaction.options.getInteger("z");
           const dimension = interaction.options.getString("dimension");
           try {
+            if(cmdUser?.permissions.has()) {
             const addOptions = {
               body: `command=dmarker%20add%20set%3A${category}%20label%3A%22${name}%22%20x%3A${x}%20y%3A${y}%20z%3A${z}%20icon%3A${icon}%20world%3A${dimension}`,
               method: "POST",
