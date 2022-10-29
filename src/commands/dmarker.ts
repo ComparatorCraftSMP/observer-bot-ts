@@ -100,9 +100,7 @@ module.exports = {
           const dimension = interaction.options.getString("dimension");
           try {
             const addOptions = {
-              body: `command=dmarker%20add%20set%3A${interaction.options.getString(
-                "category"
-              )}%20label%3A%22${name}%22%20x%3A${x}%20y%3A${y}%20z%3A${z}%20icon%3A${icon}%20world%3A${dimension}`,
+              body: `command=dmarker%20add%20set%3A${category}%20label%3A%22${name}%22%20x%3A${x}%20y%3A${y}%20z%3A${z}%20icon%3A${icon}%20world%3A${dimension}`,
               method: "POST",
               headers: {
                 accept: "*/*",
@@ -128,6 +126,7 @@ module.exports = {
             await interaction.reply({ embeds: [embed] });
           } catch (error) {
             console.error(error);
+            await interaction.reply({ content:'Could not add dynmap marker.', ephemeral: true });
           }
           break;
         case "delete":
