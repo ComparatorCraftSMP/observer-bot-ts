@@ -89,8 +89,10 @@ module.exports = {
 
   async execute(interaction: ChatInputCommandInteraction) {
     try {
-      const guild = interaction.guild
-      const cmdUser = await guild?.members.fetch(`${interaction?.member?.user.id}`)
+      const guild = interaction.guild;
+      const cmdUser = await guild?.members.fetch(
+        `${interaction?.member?.user.id}`
+      );
       switch (interaction.options.getSubcommand()) {
         case "add":
           const name = interaction.options.getString("name");
@@ -101,25 +103,33 @@ module.exports = {
           const z = interaction.options.getInteger("z");
           const dimension = interaction.options.getString("dimension");
           try {
-            if(cmdUser?.permissions.has()) {
-            const addOptions = {
-              body: `command=dmarker%20add%20set%3A${category}%20label%3A%22${name}%22%20x%3A${x}%20y%3A${y}%20z%3A${z}%20icon%3A${icon}%20world%3A${dimension}`,
-              method: "POST",
-              headers: {
-                accept: "*/*",
-                key: `${process.env.API}`,
-                "Content-Type": "application/x-www-form-urlencoded",
-              },
-            };
+            if (
+              cmdUser?.permissions.has(
+                config.dynmap.cmdPerms.addMarker.permissions
+              ) ||
+              cmdUser?.roles.cache.hasAny(
+                config.dynmap.cmdPerms.addMarker.role_ids
+              )
+            ) {
+              const addOptions = {
+                body: `command=dmarker%20add%20set%3A${category}%20label%3A%22${name}%22%20x%3A${x}%20y%3A${y}%20z%3A${z}%20icon%3A${icon}%20world%3A${dimension}`,
+                method: "POST",
+                headers: {
+                  accept: "*/*",
+                  key: `${process.env.API}`,
+                  "Content-Type": "application/x-www-form-urlencoded",
+                },
+              };
 
-            const addDmarker = await fetch(
-              `${process.env.SERVER}/v1/server/exec`,
-              addOptions
-            );
+              const addDmarker = await fetch(
+                `${process.env.SERVER}/v1/server/exec`,
+                addOptions
+              );
+            }
             //const data = await response.json()
 
             const addDmarkerEmbed = new EmbedBuilder()
-            // @ts-ignore
+              // @ts-ignore
               .setColor(config.embedColor)
               .setTitle(`Added dynmap marker`)
               .setDescription(
@@ -129,7 +139,10 @@ module.exports = {
             await interaction.reply({ embeds: [addDmarkerEmbed] });
           } catch (error) {
             console.error(error);
-            await interaction.reply({ content:'Could not add dynmap marker.', ephemeral: true });
+            await interaction.reply({
+              content: "Could not add dynmap marker.",
+              ephemeral: true,
+            });
           }
           break;
         case "delete":
