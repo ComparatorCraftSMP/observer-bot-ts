@@ -115,7 +115,7 @@ module.exports = {
             );
             //const data = await response.json()
 
-            const embed = new EmbedBuilder()
+            const addDmarkerEmbed = new EmbedBuilder()
             // @ts-ignore
               .setColor(config.embedColor)
               .setTitle(`Added dynmap marker`)
@@ -123,7 +123,7 @@ module.exports = {
                 `View your marker here: https://map.comparatorcraftsmp.net/#${dimension};flat;${x},64,${z};7`
               );
 
-            await interaction.reply({ embeds: [embed] });
+            await interaction.reply({ embeds: [addDmarkerEmbed] });
           } catch (error) {
             console.error(error);
             await interaction.reply({ content:'Could not add dynmap marker.', ephemeral: true });
