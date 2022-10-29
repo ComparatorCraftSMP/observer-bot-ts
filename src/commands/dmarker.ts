@@ -102,17 +102,7 @@ module.exports = {
             const addOptions = {
               body: `command=dmarker%20add%20set%3A${interaction.options.getString(
                 "category"
-              )}%20label%3A%22${interaction.options.getString(
-                "name"
-              )}%22%20x%3A${interaction.options.getInteger(
-                "x"
-              )}%20y%3A${interaction.options.getInteger(
-                "y"
-              )}%20z%3A${interaction.options.getInteger(
-                "z"
-              )}%20icon%3A${interaction.options.getString(
-                "icon"
-              )}%20world%3A${interaction.options.getString("dimension")}`,
+              )}%20label%3A%22${name}%22%20x%3A${x}%20y%3A${y}%20z%3A${z}%20icon%3A${icon}%20world%3A${dimension}`,
               method: "POST",
               headers: {
                 accept: "*/*",
@@ -132,11 +122,7 @@ module.exports = {
               .setColor(config.embedColor)
               .setTitle(`Added dynmap marker`)
               .setDescription(
-                `View your marker here: https://map.comparatorcraftsmp.net/#${interaction.options.getString(
-                  "dimension"
-                )};flat;${interaction.options.getInteger(
-                  "x"
-                )},64,${interaction.options.getInteger("z")};7`
+                `View your marker here: https://map.comparatorcraftsmp.net/#${dimension};flat;${x},64,${z};7`
               );
 
             await interaction.reply({ embeds: [embed] });
