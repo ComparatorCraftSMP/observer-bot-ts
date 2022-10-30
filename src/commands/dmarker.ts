@@ -16,7 +16,7 @@ import {
   ChatInputCommandInteraction,
 } from "discord.js";
 import { config } from "../../config";
-
+import fetch from "cross-fetch";
 import { client } from "../../index";
 
 module.exports = {
@@ -127,18 +127,23 @@ module.exports = {
                 `${process.env.SERVER}/v1/server/exec`,
                 addOptions
               );
+              /* const dmapRes = await addDmarker.json()
+              console.log(dmapRes) */
+              const addDmarkerEmbed = new EmbedBuilder()
+                // @ts-ignore
+                .setColor(config.embedColor)
+                .setTitle(`Added dynmap marker`)
+                .setDescription(
+                  `View your marker here: https://map.comparatorcraftsmp.net/#${dimension};flat;${x},64,${z};7`
+                );
+
+              await interaction.reply({ embeds: [addDmarkerEmbed] });
+            } else {
+              await interaction.reply({
+                content: "You don't have permission to do this command",
+                ephemeral: true,
+              });
             }
-            //const data = await response.json()
-
-            const addDmarkerEmbed = new EmbedBuilder()
-              // @ts-ignore
-              .setColor(config.embedColor)
-              .setTitle(`Added dynmap marker`)
-              .setDescription(
-                `View your marker here: https://map.comparatorcraftsmp.net/#${dimension};flat;${x},64,${z};7`
-              );
-
-            await interaction.reply({ embeds: [addDmarkerEmbed] });
           } catch (error) {
             console.error(error);
             await interaction.reply({
@@ -148,6 +153,12 @@ module.exports = {
           }
           break;
         case "delete":
+          const label = interaction.options.getString("label");
+          try {
+            if()
+          } catch (error) {
+            
+          }
           break;
         case "list_categories":
           break;
