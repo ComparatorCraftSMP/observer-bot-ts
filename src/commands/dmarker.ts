@@ -200,7 +200,11 @@ module.exports = {
               });
             }
           } catch (error) {
-            
+            console.error(error);
+            await interaction.reply({
+              content: "Could not delete dynmap marker.",
+              ephemeral: true,
+            });
           }
           break;
         case "list_categories":
