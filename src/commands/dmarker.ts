@@ -155,7 +155,43 @@ module.exports = {
         case "delete":
           const label = interaction.options.getString("label");
           try {
-            if()
+            if(cmdUser?.permissions.has(
+              // @ts-ignore
+              config.dynmap.cmdPerms.deleteMarker.permissions
+            ) ||
+            cmdUser?.roles.cache.hasAny(
+              // @ts-ignore
+              config.dynmap.cmdPerms.deleteMarker.role_ids
+            )) {
+              const deleteOptions = {
+                body: `command=dmarker%20delete%20label%3A%22${label}%22`,
+                method: "POST",
+                headers: {
+                  accept: "*/*",
+                  key: `${process.env.API}`,
+                  "Content-Type": "application/x-www-form-urlencoded",
+                },
+              };
+
+              const deleteDmarker = await fetch(
+                `${process.env.SERVER}/v1/server/exec`,
+                deleteOptions
+              );
+              /* const dmapRes = await deleteDmarker.json()
+              console.log(dmapRes) */
+              const deleteDmarkerEmbed = new EmbedBuilder()
+                // @ts-ignore
+                .setColor(config.embedColor)
+                .setTitle(`Deleted dynmap marker`)
+                
+
+              await interaction.reply({ embeds: [deleteDmarkerEmbed] });
+            } else {
+              await interaction.reply({
+                content: "You don't have permission to do this command",
+                ephemeral: true,
+              });
+            }
           } catch (error) {
             
           }
