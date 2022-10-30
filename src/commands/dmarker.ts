@@ -80,6 +80,12 @@ module.exports = {
             .setDescription("Put the dynmap marker's label or id here")
             .setRequired(true)
         )
+        .addStringOption((option) =>
+          option
+            .setName("set")
+            .setDescription("The set the dynmap marker is in")
+            .setRequired(false)
+        )
     )
     .addSubcommand((subcommand) =>
       subcommand
@@ -154,6 +160,7 @@ module.exports = {
           break;
         case "delete":
           const label = interaction.options.getString("label");
+          const set = interaction.options.getString("set");
           try {
             if(cmdUser?.permissions.has(
               // @ts-ignore
@@ -164,7 +171,7 @@ module.exports = {
               config.dynmap.cmdPerms.deleteMarker.role_ids
             )) {
               const deleteOptions = {
-                body: `command=dmarker%20delete%20label%3A%22${label}%22`,
+                body: `command=dmarker%20delete%20label%3A%22${label}%22%20set%3A%22${set}%22`,
                 method: "POST",
                 headers: {
                   accept: "*/*",
