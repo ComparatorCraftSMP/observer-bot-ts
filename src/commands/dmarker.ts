@@ -162,14 +162,16 @@ module.exports = {
           const label = interaction.options.getString("label");
           const set = interaction.options.getString("set");
           try {
-            if(cmdUser?.permissions.has(
-              // @ts-ignore
-              config.dynmap.cmdPerms.deleteMarker.permissions
-            ) ||
-            cmdUser?.roles.cache.hasAny(
-              // @ts-ignore
-              config.dynmap.cmdPerms.deleteMarker.role_ids
-            )) {
+            if (
+              cmdUser?.permissions.has(
+                // @ts-ignore
+                config.dynmap.cmdPerms.deleteMarker.permissions
+              ) ||
+              cmdUser?.roles.cache.hasAny(
+                // @ts-ignore
+                config.dynmap.cmdPerms.deleteMarker.role_ids
+              )
+            ) {
               const deleteOptions = {
                 body: `command=dmarker%20delete%20label%3A%22${label}%22%20set%3A%22${set}%22`,
                 method: "POST",
@@ -189,9 +191,7 @@ module.exports = {
               const deleteDmarkerEmbed = new EmbedBuilder()
                 // @ts-ignore
                 .setColor(config.embedColor)
-                .setTitle(`Deleted dynmap marker`)
-                
-
+                .setTitle(`Deleted dynmap marker`);
               await interaction.reply({ embeds: [deleteDmarkerEmbed] });
             } else {
               await interaction.reply({
@@ -208,6 +208,14 @@ module.exports = {
           }
           break;
         case "list_categories":
+          try {
+          } catch (error) {
+            console.error(error);
+            await interaction.reply({
+              content: "Could not get list of categories.",
+              ephemeral: true,
+            });
+          }
           break;
       }
     } catch (error) {
