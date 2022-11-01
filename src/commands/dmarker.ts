@@ -228,6 +228,15 @@ module.exports = {
 
             const regex = /"(.*?)"/g
 
+            const parsedCategories = categories.match(regex)
+            
+            const categoriesEmbed = new EmbedBuilder()
+            // @ts-ignore
+                    .setColor(config.embedColor)
+                    .setTitle(`Here are all the Dynmap Categories`)
+                    .setThumbnail(interaction.user?.avatarURL({ forceStatic: false })!)
+                    .setDescription(`${}`)
+                    
          
             await interaction.reply('You listed categories, check console')
           } catch (error) {
