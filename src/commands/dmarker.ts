@@ -234,11 +234,12 @@ module.exports = {
             // @ts-ignore
                     .setColor(config.embedColor)
                     .setTitle(`Here are all the Dynmap Categories`)
-                    .setThumbnail(interaction.user?.avatarURL({ forceStatic: false })!)
-                    .setDescription(`${}`)
+                    .setThumbnail(client.user.avatarURL({ forceStatic: false })!)
+                    // @ts-ignore
+                    .setDescription(parsedCategories?.map((cat) => `**${cat.replace('""', '')}**`).join(', ').replaceAll('"', ''))
                     
          
-            await interaction.reply('You listed categories, check console')
+            await interaction.reply({ embeds: [categoriesEmbed]})
           } catch (error) {
             console.error(error);
             await interaction.reply({
