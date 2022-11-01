@@ -209,6 +209,27 @@ module.exports = {
           break;
         case "list_categories":
           try {
+            const listCatOptions = {
+              body: `command=dmarker%20listsets`,
+              method: "POST",
+              headers: {
+                accept: "*/*",
+                key: `${process.env.API}`,
+                "Content-Type": "application/x-www-form-urlencoded",
+              },
+            };
+
+            const listCategories = await fetch(
+              `${process.env.SERVER}/v1/server/exec`,
+              listCatOptions
+            )
+
+            const categories = await listCategories.text()
+
+            const regex = /"(.*?)"/g
+
+         
+            await interaction.reply('You listed categories, check console')
           } catch (error) {
             console.error(error);
             await interaction.reply({
