@@ -11,49 +11,57 @@ import {
   ButtonBuilder,
   ButtonStyle,
   MessageActionRowComponentBuilder,
+  AutocompleteInteraction,
 } from "discord.js";
+import { config } from "../../config";
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("player_stat")
-    .setDescription("Statistic of a specific player on the server"),
+    .setDescription("Statistic of a specific player on the server")
+    .addStringOption((option) =>
+      option
+        .setName("username")
+        .setDescription("Username of the player")
+        .setRequired(true)
+        .setAutocomplete(true)
+    )
+    .addStringOption((option) =>
+      option
+        .setName("stat")
+        .setDescription("The stat you want")
+        .setRequired(true)
+        .setAutocomplete(true)
+    ),
+
+  async autocomplete(interaction: AutocompleteInteraction) {
+    let choices;
+
+    const options = {
+      method: 'GET',
+      headers: {Accept: 'application/json', 'key': `${process.env.API}`}
+    }
+
+  const response = await fetch(`${process.env.SERVER}/v1/scoreboard`, options)
+  },
 
   async execute(interaction: CommandInteraction) {
     try {
       //code here
 
       const embed = new EmbedBuilder()
-        .setColor(`#6bde36`)
+      // @ts-ignore
+        .setColor(`${config.embedColor}`)
         .setTitle(`Title Here`)
         .setThumbnail(interaction.user?.avatarURL({ forceStatic: false })!)
         .setURL("https://analog-ts.bossdaily.me/")
         .setAuthor({
           name: "Some name",
-          iconURL: "https://avatars.githubusercontent.com/u/110413696?s=200&v=4",
+          iconURL:
+            "https://avatars.githubusercontent.com/u/110413696?s=200&v=4",
           url: "https://analog-ts.bossdaily.me/",
         })
-        .setDescription("Some description here")
-        .addFields(
-          { name: "Regular field title", value: "Some value here" },
-          { name: "\u200B", value: "\u200B" },
-          {
-            name: "Inline field title",
-            value: "Some value here",
-            inline: true,
-          },
-          { name: "Inline field title", value: "Some value here", inline: true }
-        )
-        .addFields({
-          name: "Inline field title",
-          value: "Some value here",
-          inline: true,
-        })
-        .setImage("https://avatars.githubusercontent.com/u/110413696?s=200&v=4")
-        .setTimestamp()
-        .setFooter({
-          text: "Some footer text here",
-          iconURL: "https://avatars.githubusercontent.com/u/110413696?s=200&v=4",
-        });
+        .setDescription("Some description here");
 
       await interaction.reply({ embeds: [embed] });
     } catch (error) {
