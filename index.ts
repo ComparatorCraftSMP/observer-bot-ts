@@ -28,7 +28,7 @@ export const client: any = new Client({
     GatewayIntentBits.DirectMessages,
     GatewayIntentBits.DirectMessageReactions,
     GatewayIntentBits.DirectMessageTyping,
-    GatewayIntentBits.GuildEmojisAndStickers
+    GatewayIntentBits.GuildEmojisAndStickers,
   ],
   partials: [
     Partials.Channel, // Required to receive DMs
@@ -54,7 +54,6 @@ for (const file of eventFiles) {
   }
 }
 
-
 client.commands = new Collection();
 // This gets the command modules from the command folders
 const cmdPath = path.join(__dirname, "src/commands");
@@ -74,11 +73,24 @@ client.on("interactionCreate", async (interaction: CommandInteraction) => {
   const command = client.commands.get(interaction.commandName);
 
   if (!command) return;
-
-  try {
-    await command.execute(interaction);
-  } catch (error) {
-    console.error(error)
+  if (interaction.isChatInputCommand()) {
+    try {
+      await command.execute(interaction);
+    } catch (error) {
+      console.error(error);
+    }
+  } else if (interaction.isContextMenuCommand()) {
+    try {
+      await command.execute(interaction);
+    } catch (error) {
+      console.error(error);
+    }
+  } else if (interaction.isAutocomplete()) {
+    try {
+      await command.autocomplete(interaction);
+    } catch (error) {
+      console.error(error);
+    }
   }
 });
 
@@ -89,19 +101,18 @@ client.selectMenus = new Collection();
 const compPath = path.join(__dirname, "src/components");
 const componentFolders = readdirSync(compPath);
 
-
 for (const folder of componentFolders) {
   const comps = path.join(compPath, folder);
   const componentFiles = readdirSync(comps).filter((file) =>
     file.endsWith(".js")
   );
-  
+
   switch (folder) {
     case "buttons":
       for (const file of componentFiles) {
         const filePath = path.join(compPath, folder, file);
         const button = require(filePath);
-        
+
         client.buttons.set(button.data.name, button);
       }
       break;
@@ -134,7 +145,6 @@ client.on(
   ) => {
     if (interaction.isButton()) {
       const button = client.buttons.get(interaction.customId);
-      
 
       try {
         await button.execute(interaction);
@@ -158,7 +168,6 @@ client.on(
         });
       }
     } else if (interaction.type === InteractionType.ModalSubmit) {
-      
       const modal = client.modals.get(interaction.customId);
 
       try {
