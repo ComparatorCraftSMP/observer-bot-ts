@@ -60,20 +60,20 @@ module.exports = {
           const regexHashTag = /#\w+/g;
 
           const filterUUID = choices.filter(
-            (choice) => !regexUUID.test(choice)
+            (choice: string) => !regexUUID.test(choice)
           );
 
           const filterHashTag = filterUUID.filter(
-            (choice) => !regexHashTag.test(choice)
+            (choice: string) => !regexHashTag.test(choice)
           );
 
-          const filteredTwo = filterHashTag.filter((choice) =>
-            choice.includes(focusedOption.value)
+          const filteredTwo = filterHashTag.filter((choice: string) =>
+            choice.toLowerCase().includes(focusedOption.value.toLowerCase())
           );
 
           interaction.respond(
             filteredTwo
-              .map((choice) => ({
+              .map((choice: string) => ({
                 name: choice,
                 value: choice,
               }))
@@ -84,11 +84,11 @@ module.exports = {
         if (focusedOption.name === "stat") {
           choices = objectives;
 
-          const filtered = choices.filter((choice) =>
+          const filtered = choices.filter((choice: string) =>
             choice.includes(focusedOption.value)
           );
 
-          const intRes = filtered.map((choice) => ({
+          const intRes = filtered.map((choice: string) => ({
             name: choice.replace(/^[^_]+_/g, ""),
             value: choice,
           }));
@@ -116,7 +116,7 @@ module.exports = {
         options
       );
       const data = await response.json();
-      let statObj = data.scores.find((x) => x.entry === username);
+      let statObj = data.scores.find((x: any) => x.entry === username);
       let statObjs = statObj.value
       if (statObjs === undefined){
         statObjs = 0
