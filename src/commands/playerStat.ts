@@ -85,7 +85,7 @@ module.exports = {
           choices = objectives;
 
           const filtered = choices.filter((choice: string) =>
-            choice.includes(focusedOption.value)
+            choice.toLowerCase().includes(focusedOption.value.toLowerCase())
           );
 
           const intRes = filtered.map((choice: string) => ({
@@ -117,10 +117,8 @@ module.exports = {
       );
       const data = await response.json();
       let statObj = data.scores.find((x: any) => x.entry === username);
-      let statObjs = statObj.value
-      if (statObjs === undefined){
-        statObjs = 0
-      }
+   
+     
 
       console.log(statObj)
 
@@ -132,7 +130,7 @@ module.exports = {
         .setColor(`${config.embedColor}`)
         .setTitle(`Player stats of ${username}`)
         .setThumbnail(`https://minotar.net/armor/bust/${username}/100.png`)
-        .setDescription(`${statName}: ${statObjs}`);
+        .setDescription(`${statName}: ${statObj ? statObj.value : "0"}`);
 
       await interaction.reply({
         embeds: [embed],
