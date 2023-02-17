@@ -14,6 +14,8 @@ import {
   ButtonStyle,
   MessageActionRowComponentBuilder,
   ChatInputCommandInteraction,
+  AutocompleteInteraction,
+  ApplicationCommandOptionType,
 } from "discord.js";
 import moment from "moment";
 import { client } from "../..";
@@ -62,6 +64,7 @@ module.exports = {
             .setName("username")
             .setDescription("The username of the player you want info about")
             .setRequired(true)
+            .setAutocomplete(true)
         )
     )
     .addSubcommand((subcommand) =>
@@ -77,6 +80,53 @@ module.exports = {
             .setRequired(true)
         )
     ),
+
+  async autocomplete(interaction: AutocompleteInteraction) {
+    const focusedOption = interaction.options.getFocused(true);
+    let choices;
+
+    const options = {
+      method: "GET",
+      headers: { Accept: "application/json", key: `${process.env.API}` },
+    };
+
+    const req = await fetch(`${process.env.SERVER}/v1/scoreboard`, options)
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        const usernames = res.entries;
+        const objectives = res.objectives;
+
+        if (focusedOption.name === "username") {
+          choices = usernames;
+
+          const regexUUID = /\w{8}-\w{4}-\w{4}-\w{4}-\w{12}/g;
+          const regexHashTag = /#\w+/g;
+
+          const filterUUID = choices.filter(
+            (choice: string) => !regexUUID.test(choice)
+          );
+
+          const filterHashTag = filterUUID.filter(
+            (choice: string) => !regexHashTag.test(choice)
+          );
+
+          const filteredTwo = filterHashTag.filter((choice: string) =>
+            choice.toLowerCase().includes(focusedOption.value.toLowerCase())
+          );
+
+          interaction.respond(
+            filteredTwo
+              .map((choice: string) => ({
+                name: choice,
+                value: choice,
+              }))
+              .slice(0, 25)
+          );
+        } 
+      })
+  },
 
   async execute(interaction: ChatInputCommandInteraction) {
     try {
@@ -178,7 +228,7 @@ module.exports = {
                   value: `${feature}`,
                 }
               )
-              .setThumbnail(guild?.iconURL({forceStatic: false })!);
+              .setThumbnail(guild?.iconURL({ forceStatic: false })!);
 
             await interaction.reply({ embeds: [guildEmbed] });
             await wait(1);
@@ -380,7 +430,9 @@ module.exports = {
             })
             // @ts-ignore
             .setColor(config.embedColor)
-            .setTitle(`Minecraft Information about ${username} on ${interaction.guild?.name}`)
+            .setTitle(
+              `Minecraft Information about ${username} on ${interaction.guild?.name}`
+            )
             .setThumbnail(`https://minotar.net/helm/${username}/100.png`)
             .addFields(
               {
@@ -468,12 +520,14 @@ module.exports = {
             mcOptions
           );
 
-          const mc_player = await mcQuery.json()
+          const mc_player = await mcQuery.json();
 
           const mcUserEmbed = new EmbedBuilder()
-          // @ts-ignore
+            // @ts-ignore
             .setColor(config.embedColor)
-            .setTitle(`Minecraft information about ${mc_player.data.player.username}`)
+            .setTitle(
+              `Minecraft information about ${mc_player.data.player.username}`
+            )
             .setThumbnail(`https://minotar.net/helm/${mc_username}/100.png`)
             .addFields(
               {
@@ -486,8 +540,8 @@ module.exports = {
                 value: `${mc_player.data.player.id}`,
                 inline: true,
               }
-            )
-            
+            );
+
           try {
             await interaction.reply({ embeds: [mcUserEmbed] });
             await interaction.editReply({ embeds: [mcUserEmbed] });
