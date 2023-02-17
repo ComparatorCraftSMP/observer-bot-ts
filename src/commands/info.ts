@@ -178,7 +178,7 @@ module.exports = {
                   value: `${feature}`,
                 }
               )
-              .setThumbnail(client.user.avatarURL({ forceStatic: false })!);
+              .setThumbnail(guild?.iconURL({forceStatic: false })!);
 
             await interaction.reply({ embeds: [guildEmbed] });
             await wait(1);
