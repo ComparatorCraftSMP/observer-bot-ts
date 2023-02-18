@@ -17,6 +17,11 @@ import dotenv, { config } from "dotenv";
 import { regCMD } from "./src/deploy-commands";
 import { devConfig } from "./devconfig";
 import path from "node:path";
+import cron from "node-cron";
+
+type DynamicModule = {
+  default: () => void;
+};
 
 dotenv.config();
 export const client: any = new Client({
@@ -53,6 +58,18 @@ for (const file of eventFiles) {
     client.on(event.name, (...args: any) => event.execute(...args));
   }
 }
+
+
+// Get the list of task files in the tasks folder
+const tasksFolder = path.join(__dirname, 'src/tasks');
+const taskFiles = fs.readdirSync(tasksFolder);
+
+// Schedule each task using node-cron
+taskFiles.forEach(file => {
+  const taskFunction = require(path.join(tasksFolder, file));
+  taskFunction();
+});
+
 
 client.commands = new Collection();
 // This gets the command modules from the command folders
