@@ -19,10 +19,6 @@ import { devConfig } from "./devconfig";
 import path from "node:path";
 import cron from "node-cron";
 
-type DynamicModule = {
-  default: () => void;
-};
-
 export type TaskFunction = () => void;
 
 dotenv.config();
