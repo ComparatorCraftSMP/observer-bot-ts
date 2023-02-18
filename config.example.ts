@@ -1,8 +1,6 @@
 export const config = {
   botOwner: "",
   embedColor: "#00a3ff",
-  _comment:
-    "For the scoreboard you can't have more than 25 premade stats, also you can run /statlist to see all the scoreboard commands you can do on your server",
   application: {
     ticket_category: "",
     staff_role: "",
