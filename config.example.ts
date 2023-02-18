@@ -19,10 +19,10 @@ export const config = {
     },
   },
   active_role: {
+    enabled: false,
     role_id: "",
     activity: 2,
     member_role_id: "",
-
   },
   guild_id: "",
   ip: "",
