@@ -18,5 +18,11 @@ export const config = {
       deleteMarker: { role_ids: [], permissions: ['ManageChannels'] },
     },
   },
+  active_role: {
+    role_id: "",
+    activity: 2,
+    member_role_id: "",
+    
+  },
   ip: "",
 };
