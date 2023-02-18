@@ -40,12 +40,10 @@ module.exports = {
     const focusedOption = interaction.options.getFocused(true);
     let choices;
 
-    const options = {
+    const req = await fetch(`${process.env.SERVER}/v1/scoreboard`, {
       method: "GET",
       headers: { Accept: "application/json", key: `${process.env.API}` },
-    };
-
-    const req = await fetch(`${process.env.SERVER}/v1/scoreboard`, options)
+    })
       .then((res) => {
         return res.json();
       })
@@ -117,10 +115,8 @@ module.exports = {
       );
       const data = await response.json();
       let statObj = data.scores.find((x: any) => x.entry === username);
-   
-     
 
-      console.log(statObj)
+      console.log(statObj);
 
       const statRe = /^[^_]+_/g;
       const statName = stat?.replace(statRe, "");
