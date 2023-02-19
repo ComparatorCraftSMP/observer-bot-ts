@@ -9,7 +9,7 @@ export default async function (): Promise<void> {
   cron.schedule("* * * * *", async () => {
     if (config.active_role.enabled) {
       const playersQuery = await fetch(
-        `https://plan.comparatorcraftsmp.net/v1/players?server=survival`,
+        `${config.plan.url}/v1/players?server=${config.plan.server}}`,
         {
           method: "GET",
         }

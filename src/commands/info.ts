@@ -408,7 +408,7 @@ module.exports = {
           };
 
           const playerQuery = await fetch(
-            `https://plan.comparatorcraftsmp.net/v1/player?player=${username}`,
+            `${config.plan.url}/v1/player?player=${username}`,
             options
           );
 
