@@ -24,6 +24,12 @@ export const config = {
     activity: 2,
     member_role_id: "",
   },
+  og_role: {
+    enabled: false,
+    role_id: "",
+    joined_before: 0, /* unix timestamp */
+    member_role_id: "",
+  },
   guild_id: "",
   ip: "",
 };
