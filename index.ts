@@ -73,6 +73,7 @@ taskFiles.forEach((file: string) => {
 
   // Find the exported function and call it to schedule the task
   const taskFunction = taskModule.default;
+  if(!taskFunction) return
   taskFunction();
 });
 
@@ -84,6 +85,7 @@ const commandFiles = fs
   .filter((file) => file.endsWith(".js"));
 
 for (const file of commandFiles) {
+  
   const filePath = path.join(cmdPath, file);
   const command = require(filePath);
 
@@ -166,8 +168,9 @@ client.on(
       | SelectMenuInteraction
   ) => {
     if (interaction.isButton()) {
-      const button = client.buttons.get(interaction.customId);
 
+      const button = client.buttons.get(interaction.customId);
+      if(!button) return;
       try {
         await button.execute(interaction);
       } catch (error) {
@@ -177,9 +180,9 @@ client.on(
           ephemeral: true,
         });
       }
-    } else if (interaction.isSelectMenu()) {
+    } else if (interaction.isAnySelectMenu()) {
       const selectMenu = client.selectMenus.get(interaction.customId);
-
+      if(!selectMenu) return;
       try {
         await selectMenu.execute(interaction);
       } catch (error) {
@@ -189,9 +192,9 @@ client.on(
           ephemeral: true,
         });
       }
-    } else if (interaction.type === InteractionType.ModalSubmit) {
+    } else if (interaction.isModalSubmit()) {
       const modal = client.modals.get(interaction.customId);
-
+      if(!modal) return;
       try {
         await modal.execute(interaction);
       } catch (error) {
