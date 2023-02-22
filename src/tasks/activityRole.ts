@@ -9,7 +9,7 @@ export default async function (): Promise<void> {
   cron.schedule("* * * * *", async () => {
     if (config.active_role.enabled) {
       const playersQuery = await fetch(
-        `${config.plan.url}/v1/players?server=${config.plan.server}}`,
+        `${config.plan.url}/v1/players?server=${config.plan.server}`,
         {
           method: "GET",
         }
@@ -17,7 +17,6 @@ export default async function (): Promise<void> {
       const players = await playersQuery.json();
 
       const playerData = players.data;
-
       const guild: Guild = await client.guilds.fetch(config.guild_id);
       const members = await guild.members.fetch();
 
