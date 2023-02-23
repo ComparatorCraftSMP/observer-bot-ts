@@ -17,6 +17,7 @@ import {
 } from "discord.js";
 import fetch from "cross-fetch";
 import { config } from "../../config";
+import { Pagination } from "pagination.djs";
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -65,6 +66,8 @@ module.exports = {
 
   async execute(interaction: ChatInputCommandInteraction) {
     try {
+      // @ts-ignore
+      const pagination = new Pagination(interaction);
       //code here
       const stat = interaction.options.getString("stat");
       const statRe = /^[^_]+_/g;
@@ -85,32 +88,48 @@ module.exports = {
         (a: any, b: any) => b.value - a.value
       );
 
-      let userIGN = "";
-      userIGN = Object.values(leaderboard)
-        .map((ign: any) => ign.entry)
-        .join("\n");
-      let score = "";
-      score = Object.values(leaderboard)
-        .map((score: any) => score.value)
-        .join("\n");
-
-      
+      const perPage = 15
 
       const pages = [];
 
-      for (let i = 0; i < leaderboard.length; i += 10) {
-        const page = leaderboard.slice(i, i + 10);
-        pages.push(page);
+      for (let i = 0; i < leaderboard.length; i += perPage) {
+        const page = leaderboard.slice(i, i + perPage);
+        const userIGN = Object.values(page)
+          .map((ign: any) => ign.entry)
+          .join("\n");
+        const score = Object.values(page)
+          .map((score: any) => score.value)
+          .join("\n");
+        const number = 1;
+        pages.push({ igns: userIGN, scores: score, numbers: number });
       }
 
       const embeds = [];
       for (let i = 0; i < pages.length; i++) {
         const embed = new EmbedBuilder()
           .setTitle("Scores")
-          .setDescription(pages[i].join("\n"))
-          .setFooter(`Page ${i + 1} of ${pages.length}`);
+          .addFields([
+            {
+              name: "Rank",
+              value: `${pages[i].numbers}`,
+              inline: true,
+            },
+            {
+              name: "Player",
+              value: `${pages[i].igns}`,
+              inline: true,
+            },
+            {
+              name: "Value",
+              value: `${pages[i].scores}`,
+              inline: true,
+            },
+          ])
+          .setFooter({ text: `Page ${i + 1} of ${pages.length}` });
         embeds.push(embed);
       }
+      pagination.setEmbeds(embeds);
+      pagination.render();
 
       /* 
       const embed = new EmbedBuilder()
@@ -139,9 +158,9 @@ module.exports = {
 
       await interaction.reply({ embeds: [embed] }); */
 
-      await interaction.reply({
+      /* await interaction.reply({
         content: "this command is in development",
-      });
+      }); */
     } catch (error) {
       await interaction.reply({
         content: "There was an error executing this command",
