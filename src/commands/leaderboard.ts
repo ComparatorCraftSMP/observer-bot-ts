@@ -144,37 +144,6 @@ module.exports = {
       }
       pagination.setEmbeds(embeds);
       pagination.render();
-
-      /* 
-      const embed = new EmbedBuilder()
-        // @ts-ignore
-        .setColor(`${config.embedColor}`)
-        .setTitle(`Statistic Name`)
-        .setDescription(`Top 15 people in ${statName}`)
-        .addFields(
-          {
-            name: "Rank",
-            value:
-              "`#1\n#2\n#3\n#4\n#5\n#6\n#7\n#8\n#9\n#10\n#11\n#12\n#13\n#14\n#15`",
-            inline: true,
-          },
-          {
-            name: "Player",
-            value: `\`${userIGN}\``,
-            inline: true,
-          },
-          {
-            name: "Value",
-            value: `\`${score}\``,
-            inline: true,
-          }
-        );
-
-      await interaction.reply({ embeds: [embed] }); */
-
-      /* await interaction.reply({
-        content: "this command is in development",
-      }); */
     } catch (error) {
       await interaction.reply({
         content: "There was an error executing this command",
