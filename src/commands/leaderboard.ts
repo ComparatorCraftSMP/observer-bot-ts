@@ -119,7 +119,7 @@ module.exports = {
       const embeds = [];
       for (let i = 0; i < pages.length; i++) {
         const embed = new EmbedBuilder()
-          .setTitle("Scores")
+          .setTitle(`Top ${leaderboard.length} people in ${statName}`)
           .addFields([
             {
               name: "Rank",
@@ -137,7 +137,9 @@ module.exports = {
               inline: true,
             },
           ])
-          .setFooter({ text: `Page ${i + 1} of ${pages.length}` });
+          .setFooter({ text: `Page ${i + 1} of ${pages.length}` })
+          // @ts-ignore
+          .setColor(`${config.embedColor}`);
         embeds.push(embed);
       }
       pagination.setEmbeds(embeds);
