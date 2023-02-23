@@ -84,11 +84,21 @@ module.exports = {
       );
       const data = await response.json();
 
-      const leaderboard = data.scores.sort(
+      const scoreboard = data.scores.sort(
         (a: any, b: any) => b.value - a.value
       );
 
-      const perPage = 15
+      let leaderboard: any[] = [];
+
+      scoreboard.forEach((score) =>
+        leaderboard.push({
+          entry: score.entry,
+          value: score.value,
+          index: scoreboard.findIndex((s) => s.entry === score.entry) + 1,
+        })
+      );
+
+      const perPage = 15;
 
       const pages = [];
 
@@ -100,7 +110,9 @@ module.exports = {
         const score = Object.values(page)
           .map((score: any) => score.value)
           .join("\n");
-        const number = 1;
+        const number = Object.values(page)
+          .map((score: any) => score.index)
+          .join("\n");
         pages.push({ igns: userIGN, scores: score, numbers: number });
       }
 
