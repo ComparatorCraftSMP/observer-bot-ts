@@ -90,11 +90,11 @@ module.exports = {
 
       let leaderboard: any[] = [];
 
-      scoreboard.forEach((score) =>
+      scoreboard.forEach((score: any) =>
         leaderboard.push({
           entry: score.entry,
           value: score.value.toLocaleString(),
-          index: scoreboard.findIndex((s) => s.entry === score.entry) + 1,
+          index: scoreboard.findIndex((s: any) => s.entry === score.entry) + 1,
         })
       );
 
