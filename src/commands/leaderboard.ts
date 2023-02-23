@@ -93,7 +93,7 @@ module.exports = {
       scoreboard.forEach((score) =>
         leaderboard.push({
           entry: score.entry,
-          value: score.value,
+          value: score.value.toLocaleString(),
           index: scoreboard.findIndex((s) => s.entry === score.entry) + 1,
         })
       );
