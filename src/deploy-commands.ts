@@ -5,7 +5,7 @@ import fs from "fs";
 import path from "node:path";
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { REST } from "@discordjs/rest";
-import { Routes } from "discord-api-types/v9";
+import { Routes } from "discord-api-types/v10";
 import { client } from "../index";
 import dotenv from "dotenv";
 
@@ -20,7 +20,7 @@ export const regCMD = (clientId: string) => {
     .readdirSync(cmdPath)
     .filter((file) => file.endsWith(".js"));
 
-  const rest = new REST({ version: "9" }).setToken(process.env.TOKEN!);
+  const rest = new REST({ version: "10" }).setToken(process.env.TOKEN!);
 
   for (const file of cmdFiles) {
     const filePath = path.join(cmdPath, file);
