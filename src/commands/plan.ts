@@ -87,36 +87,7 @@ module.exports = {
   async execute(interaction: ChatInputCommandInteraction) {
     try {
       //code here
-      const username = interaction.options.getString("username");
-      const stat = interaction.options.getString("stat");
-
-      const options = {
-        method: "GET",
-        headers: { Accept: "application/json", key: `${process.env.API}` },
-      };
-
-      const response = await fetch(
-        `${process.env.SERVER}/v1/scoreboard/${stat}`,
-        options
-      );
-      const data = await response.json();
-      let statObj = data.scores.find((x: any) => x.entry === username);
-
-      console.log(statObj);
-
-      const statRe = /^[^_]+_/g;
-      const statName = stat?.replace(statRe, "");
-
-      const embed = new EmbedBuilder()
-        // @ts-ignore
-        .setColor(`${config.embedColor}`)
-        .setTitle(`Player stats of ${username}`)
-        .setThumbnail(`https://minotar.net/armor/bust/${username}/100.png`)
-        .setDescription(`${statName}: ${statObj ? statObj.value : "0"}`);
-
-      await interaction.reply({
-        embeds: [embed],
-      });
+      
     } catch (error) {
       await interaction.reply({
         content: "There was an error executing this command",
