@@ -36,7 +36,7 @@ module.exports = {
             .setAutocomplete(true)
         )
     ),
-    
+
   async autocomplete(interaction: AutocompleteInteraction) {
     const focusedOption = interaction.options.getFocused(true);
     let choices;
@@ -78,21 +78,6 @@ module.exports = {
               }))
               .slice(0, 25)
           );
-        }
-
-        if (focusedOption.name === "stat") {
-          choices = objectives;
-
-          const filtered = choices.filter((choice: string) =>
-            choice.toLowerCase().includes(focusedOption.value.toLowerCase())
-          );
-
-          const intRes = filtered.map((choice: string) => ({
-            name: choice.replace(/^[^_]+_/g, ""),
-            value: choice,
-          }));
-
-          interaction.respond(intRes.slice(0, 25));
         }
       });
 
