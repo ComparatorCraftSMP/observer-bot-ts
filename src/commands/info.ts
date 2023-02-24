@@ -124,8 +124,8 @@ module.exports = {
               }))
               .slice(0, 25)
           );
-        } 
-      })
+        }
+      });
   },
 
   async execute(interaction: ChatInputCommandInteraction) {
@@ -424,6 +424,14 @@ module.exports = {
 
           const statusOnline: boolean = await playerInfo.info.online;
 
+          const row =
+            new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(
+              new ButtonBuilder()
+                .setStyle(ButtonStyle.Link)
+                .setLabel(`Link to ${username}'s Plan page`)
+                .setURL(`${config.plan.url}/player/${username}`)
+            );
+
           const playerEmbed = new EmbedBuilder()
             .setAuthor({
               name: `${statusOnline === false ? "🔴 Offline" : "🟢 Online"}`,
@@ -502,7 +510,10 @@ module.exports = {
 
           try {
             await interaction.reply({ embeds: [playerEmbed] });
-            await interaction.editReply({ embeds: [playerEmbed] });
+            await interaction.editReply({
+              embeds: [playerEmbed],
+              components: [row],
+            });
           } catch (error) {
             await interaction.reply("This player hasnt joined the mc server");
             console.error(error);
