@@ -91,6 +91,14 @@ module.exports = {
       const subcommand = interaction.options.getSubcommand();
 
       if (subcommand === "link") {
+        const row =
+          new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(
+            new ButtonBuilder()
+              .setStyle(ButtonStyle.Link)
+              .setLabel("Link to Plan Page")
+              .setURL(`${config.plan.url}`)
+          );
+
         const embed = new EmbedBuilder()
           .setTitle("Link to Plan page")
           .setDescription(
@@ -99,12 +107,22 @@ module.exports = {
           // @ts-ignore
           .setColor(config.embedColor)
           // @ts-ignore
-          .setThumbnail(interaction.guild?.iconURL())
+          .setThumbnail(interaction.guild?.iconURL());
+
         await interaction.reply({
           embeds: [embed],
+          components: [row],
         });
       } else if (subcommand === "player") {
         const player = interaction.options.getString("username");
+
+        const row =
+          new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(
+            new ButtonBuilder()
+              .setStyle(ButtonStyle.Link)
+              .setLabel(`Link to ${player}'s Plan page`)
+              .setURL(`${config.plan.url}/player/${player}`)
+          );
 
         const embed = new EmbedBuilder()
           .setTitle(`Link to ${player}'s Plan page`)
@@ -114,12 +132,12 @@ module.exports = {
           // @ts-ignore
           .setColor(config.embedColor)
           // @ts-ignore
-          .setThumbnail(interaction.guild?.iconURL())
+          .setThumbnail(interaction.guild?.iconURL());
         await interaction.reply({
           embeds: [embed],
+          components: [row],
         });
       }
-      
     } catch (error) {
       await interaction.reply({
         content: "There was an error executing this command",
