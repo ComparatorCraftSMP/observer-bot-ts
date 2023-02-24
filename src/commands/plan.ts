@@ -131,8 +131,7 @@ module.exports = {
           )
           // @ts-ignore
           .setColor(config.embedColor)
-          // @ts-ignore
-          .setThumbnail(interaction.guild?.iconURL());
+          .setThumbnail(`https://minotar.net/armor/bust/${player}/100.png`);
         await interaction.reply({
           embeds: [embed],
           components: [row],
