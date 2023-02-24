@@ -87,6 +87,38 @@ module.exports = {
   async execute(interaction: ChatInputCommandInteraction) {
     try {
       //code here
+
+      const subcommand = interaction.options.getSubcommand();
+
+      if (subcommand === "link") {
+        const embed = new EmbedBuilder()
+          .setTitle("Link to Plan page")
+          .setDescription(
+            `Click [here](${config.plan.url}) to go to the Plan page.`
+          )
+          // @ts-ignore
+          .setColor(config.embedColor)
+          // @ts-ignore
+          .setThumbnail(interaction.guild?.iconURL())
+        await interaction.reply({
+          embeds: [embed],
+        });
+      } else if (subcommand === "player") {
+        const player = interaction.options.getString("username");
+
+        const embed = new EmbedBuilder()
+          .setTitle(`Link to ${player}'s Plan page`)
+          .setDescription(
+            `Click [here](${config.plan.url}/player/${player}) to go to the Plan page of ${player}.`
+          )
+          // @ts-ignore
+          .setColor(config.embedColor)
+          // @ts-ignore
+          .setThumbnail(interaction.guild?.iconURL())
+        await interaction.reply({
+          embeds: [embed],
+        });
+      }
       
     } catch (error) {
       await interaction.reply({
