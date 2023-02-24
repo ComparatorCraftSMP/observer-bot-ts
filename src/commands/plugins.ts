@@ -23,14 +23,32 @@ module.exports = {
 
   async execute(interaction: CommandInteraction) {
     try {
-      
+      const options = {
+        method: "GET",
+        headers: { Accept: "application/json", key: `${process.env.API}` },
+      };
+
+      const response = await fetch(`${process.env.SERVER}/v1/plugins`, options);
+      const data = await response.json();
+      let pluginString = "";
+      pluginString = Object.values(data)
+        .map((plugin: any) => {
+          if(plugin.website) {
+            return `[${plugin.name}](${plugin.website})`;
+          } else {
+            return plugin.name;
+          }
+        })
+        .join(", ");
 
       const embed = new EmbedBuilder()
-      // @ts-ignore
+        // @ts-ignore
         .setColor(config.embedColor)
         .setTitle(`${interaction.guild?.name}'s plugins`)
-        .setDescription(`${commandsList}`)
-        .setThumbnail(client.user?.avatarURL({ forceStatic: false })!);
+        .setDescription(`${pluginString}`)
+        // @ts-ignore
+        .setThumbnail(interaction.guild?.iconURL())
+        .setFooter({ text: `${interaction.guild?.name} has ${data.length} plugins`});
 
       await interaction.reply({ embeds: [embed] });
     } catch (error) {
