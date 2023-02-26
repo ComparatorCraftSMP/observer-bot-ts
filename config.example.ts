@@ -30,6 +30,11 @@ export const config = {
     joined_before: 0, /* unix timestamp */
     member_role_id: "",
   },
+  news: {
+    enabled: false,
+    channel_id: "",
+    category_id: "",
+  },
   guild_id: "",
   ip: "",
 };
