@@ -2,7 +2,7 @@ import { Guild } from "discord.js";
 import cron from "node-cron";
 import fetch from "cross-fetch";
 import { client } from "../..";
-import { config } from "../../config";
+import config  from "../../config";
 
 export default async function (): Promise<void> {
   // Schedule a job to run every day at 3 PM

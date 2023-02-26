@@ -15,7 +15,7 @@ import {
   ChatInputCommandInteraction,
 } from "discord.js";
 import fetch from "cross-fetch";
-import { config } from "../../config";
+import config  from "../../config";
 
 module.exports = {
   data: new SlashCommandBuilder()

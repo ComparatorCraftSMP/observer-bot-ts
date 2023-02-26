@@ -20,7 +20,7 @@ import {
 import moment from "moment";
 import { client } from "../..";
 
-import { config } from "../../config";
+import config  from "../../config";
 import fetchPlaceholder from "../utils/fetchPlaceholder";
 const wait = require("node:timers/promises").setTimeout;
 

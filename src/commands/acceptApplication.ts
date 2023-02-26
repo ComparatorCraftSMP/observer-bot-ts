@@ -20,7 +20,7 @@ import {
   MessageContextMenuCommandInteraction,
   ChannelType,
 } from "discord.js";
-import { config } from "../../config";
+import config  from "../../config";
 import { client } from "../../index";
 
 module.exports = {

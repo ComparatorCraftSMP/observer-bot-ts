@@ -15,7 +15,7 @@ import {
   ModalActionRowComponentBuilder,
   ChatInputCommandInteraction,
 } from "discord.js";
-import { config } from "../../config";
+import config  from "../../config";
 import fetch from "cross-fetch";
 import { client } from "../../index";
 

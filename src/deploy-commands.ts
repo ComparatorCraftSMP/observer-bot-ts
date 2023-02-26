@@ -8,9 +8,10 @@ import { REST } from "@discordjs/rest";
 import { Routes } from "discord-api-types/v10";
 import { client } from "../index";
 import dotenv from "dotenv";
+import { config } from "../config";
 
 dotenv.config();
-export const regCMD = (clientId: string) => {
+export const regCMD = () => {
   // dotenv dependancy
 
   //Gets slash commands
@@ -29,7 +30,7 @@ export const regCMD = (clientId: string) => {
   }
 
   rest
-    .put(Routes.applicationCommands(clientId), { body: commands })
+    .put(Routes.applicationCommands(config.clientId), { body: commands })
     .then(() =>
       console.log(
         `Successfully registered ${commands.length} application commands.`

@@ -216,6 +216,6 @@ client.on("ready", async () => {
     `The bot is up! Logged in as ${client.user?.tag} at ${client.readyAt}`
   );
   if (devConfig.registerCmd === true) {
-    regCMD(client.user.id);
+    regCMD();
   }
 });

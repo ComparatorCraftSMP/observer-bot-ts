@@ -16,7 +16,7 @@ import {
   Embed,
 } from "discord.js";
 import fetch from "cross-fetch";
-import { config } from "../../config";
+import config  from "../../config";
 import { Pagination } from "pagination.djs";
 
 module.exports = {

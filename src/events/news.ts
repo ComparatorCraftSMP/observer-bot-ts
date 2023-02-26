@@ -7,7 +7,7 @@ import {
   Message,
   resolveColor,
 } from "discord.js";
-import { config } from "../../config";
+import config  from "../../config";
 
 //This logs all interactions
 module.exports = {

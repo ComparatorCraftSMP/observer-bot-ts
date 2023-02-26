@@ -14,7 +14,7 @@ import {
   ApplicationCommandOption,
 } from "discord.js";
 
-import { config } from "../../config";
+import config  from "../../config";
 
 module.exports = {
   data: new SlashCommandBuilder()
