@@ -215,7 +215,4 @@ client.on("ready", async () => {
   console.log(
     `The bot is up! Logged in as ${client.user?.tag} at ${client.readyAt}`
   );
-  if (devConfig.registerCmd === true) {
-    regCMD();
-  }
 });
