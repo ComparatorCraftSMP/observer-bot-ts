@@ -1,6 +1,7 @@
 export const config = {
   botOwner: "",
   embedColor: "#00a3ff",
+  clientId: "",
   application: {
     ticket_category: "",
     staff_role: "",
