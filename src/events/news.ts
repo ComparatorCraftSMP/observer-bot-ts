@@ -23,14 +23,9 @@ module.exports = {
           config.news.channel_id
         );
 
-        console.log(msg)
-
-        console.log(sendChannel)
-
         if (sendChannel?.isTextBased()) {
           if (msg.content) {
-            
-            sendChannel?. send({ content: msg.content });
+            sendChannel?.send({ content: msg.content });
           }
 
           if (msg.attachments) {
@@ -49,7 +44,6 @@ module.exports = {
             );
           }
         }
-
       }
     }
   },
