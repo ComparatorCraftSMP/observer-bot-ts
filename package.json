@@ -8,8 +8,10 @@
     "watch": "tsc -w",
     "start": "tsc && node dist/index.js",
     "build": "tsc",
-    "reg-cmds": "tsc && node dist/src/deploy-commands.js",
-    "delete-cmds": "tsc && node dist/src/delete-commands.js",
+    "reg-cmds": "tsc && node dist/src/utils/regCmds.js",
+    "delete-cmds": "tsc && node dist/src/utils/deleteCmds.js",
+    "reg-guild-cmds": "tsc && node dist/src/utils/regGuildCmds.js",
+    "delete-guild-cmds": "tsc && node dist/src/utils/deleteGuildCmds.js",
     "dev": "tsc && nodemon dist/index.js"
   },
   "author": "",
