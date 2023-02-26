@@ -6,9 +6,9 @@ import path from "node:path";
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { REST } from "@discordjs/rest";
 import { Routes } from "discord-api-types/v10";
-import { client } from "../index";
+import { client } from "../../index";
 import dotenv from "dotenv";
-import config from "../config";
+import config from "../../config";
 
 dotenv.config();
 
