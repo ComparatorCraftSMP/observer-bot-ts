@@ -4,9 +4,7 @@
 import fs from "fs";
 import path from "node:path";
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { REST } from "@discordjs/rest";
-import { Routes } from "discord-api-types/v10";
-import { client } from "../../index";
+import { Routes, REST } from "discord.js";
 import dotenv from "dotenv";
 import config from "../../config";
 

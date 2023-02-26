@@ -14,7 +14,6 @@ import {
 } from "discord.js";
 import fs, { read, readdirSync } from "fs";
 import dotenv, { config } from "dotenv";
-import { regCMD } from "./src/utils/regCmds";
 import { devConfig } from "./devconfig";
 import path from "node:path";
 import cron from "node-cron";
