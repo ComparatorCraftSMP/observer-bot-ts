@@ -1,7 +1,7 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { REST, Routes } from "discord.js";
 import { client } from "../index";
-import configg from "../config";
+import configg from "../../config";
 import dotenv, { config } from "dotenv";
 
 dotenv.config();

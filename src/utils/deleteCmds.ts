@@ -9,7 +9,7 @@ dotenv.config();
 const rest = new REST({ version: "10" }).setToken(process.env.TOKEN!);
 
 rest
-  .put(Routes.applicationGuildCommands(configg.clientId, configg.guild_id), {
+  .put(Routes.applicationGuildCommands(configg.clientId), {
     body: [],
   })
   .then(() => console.log(`Successfully deleted all application commands.`))
