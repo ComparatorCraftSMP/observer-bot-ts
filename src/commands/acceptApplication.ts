@@ -51,8 +51,8 @@ module.exports = {
                 ephemeral: true,
               });
             }
-            applicant?.roles.add(config.application.ticket_category);
-            applicant?.roles.remove(config.application.ticket_category);
+            applicant?.roles.add(config.application.member_role);
+            applicant?.roles.remove(config.application.applicant_role);
             await msg.reply({ content: `${config.application.message}` });
             await interaction.reply({
               content: "Message sent",
