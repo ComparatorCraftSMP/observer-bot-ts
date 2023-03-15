@@ -73,7 +73,7 @@ taskFiles.forEach((file: string) => {
 
   // Find the exported function and call it to schedule the task
   const taskFunction = taskModule.default;
-  if(!taskFunction) return
+  if (!taskFunction) return;
   taskFunction();
 });
 
@@ -85,11 +85,9 @@ const commandFiles = fs
   .filter((file) => file.endsWith(".js"));
 
 for (const file of commandFiles) {
-  
   const filePath = path.join(cmdPath, file);
   const command = require(filePath);
-
-  client.commands.set(command.data.name, command);
+  if (command.data.name) client.commands.set(command.data.name, command);
 }
 
 // This executes an Application commands when a player does a Application command
@@ -168,9 +166,8 @@ client.on(
       | SelectMenuInteraction
   ) => {
     if (interaction.isButton()) {
-
       const button = client.buttons.get(interaction.customId);
-      if(!button) return;
+      if (!button) return;
       try {
         await button.execute(interaction);
       } catch (error) {
@@ -182,7 +179,7 @@ client.on(
       }
     } else if (interaction.isAnySelectMenu()) {
       const selectMenu = client.selectMenus.get(interaction.customId);
-      if(!selectMenu) return;
+      if (!selectMenu) return;
       try {
         await selectMenu.execute(interaction);
       } catch (error) {
@@ -194,7 +191,7 @@ client.on(
       }
     } else if (interaction.isModalSubmit()) {
       const modal = client.modals.get(interaction.customId);
-      if(!modal) return;
+      if (!modal) return;
       try {
         await modal.execute(interaction);
       } catch (error) {
