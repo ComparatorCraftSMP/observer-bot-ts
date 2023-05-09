@@ -6,7 +6,7 @@ import path from "node:path";
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { Routes, REST } from "discord.js";
 import dotenv from "dotenv";
-import config from "../../config";
+import config from "../config";
 
 dotenv.config();
 
@@ -14,7 +14,7 @@ dotenv.config();
 
 //Gets slash commands
 const commands: any[] = [];
-const cmdPath = path.join(__dirname, "../commands");
+const cmdPath = path.join(__dirname, "commands");
 const cmdFiles = fs.readdirSync(cmdPath).filter((file) => file.endsWith(".js"));
 
 const rest = new REST({ version: "10" }).setToken(process.env.TOKEN!);

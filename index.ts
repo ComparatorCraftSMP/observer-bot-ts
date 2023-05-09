@@ -18,6 +18,9 @@ import { devConfig } from "./devconfig";
 import path from "node:path";
 import cron from "node-cron";
 
+import { sftpClient } from "./sftpClient";
+import Keyv from "keyv";
+
 export type TaskFunction = () => void;
 
 dotenv.config();
@@ -87,7 +90,7 @@ const commandFiles = fs
 for (const file of commandFiles) {
   const filePath = path.join(cmdPath, file);
   const command = require(filePath);
-  if (command.data.name) client.commands.set(command.data.name, command);
+  if (command.data) client.commands.set(command.data.name, command);
 }
 
 // This executes an Application commands when a player does a Application command
@@ -205,6 +208,15 @@ client.on(
   }
 );
 
+export const sftp = new sftpClient();
+
+sftp.connect({
+  host: `${process.env.SFTP_HOST}`,
+  port: 2022,
+  username: `${process.env.SFTP_USERNAME}`,
+  password: `${process.env.SFTP_PASSWORD}`,
+})
+
 //This is what logs the bot in
 client.login(process.env.TOKEN);
 client.on("ready", async () => {
@@ -212,3 +224,5 @@ client.on("ready", async () => {
     `The bot is up! Logged in as ${client.user?.tag} at ${client.readyAt}`
   );
 });
+
+export const keyv = new Keyv(process.env.SQL)
